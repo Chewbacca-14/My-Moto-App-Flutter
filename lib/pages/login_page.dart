@@ -4,18 +4,18 @@ import 'package:motoappv2/components/button.dart';
 import 'package:motoappv2/components/text_field.dart';
 import 'package:motoappv2/helpers/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:motoappv2/pages/login_page.dart';
+import 'package:motoappv2/pages/register_page.dart';
 
 //SignUp page, 2 options: Email or Google
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final email = FocusNode();
   final pw = FocusNode();
   final confirmpw = FocusNode();
@@ -65,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Register',
+                          'Login',
                           style: GoogleFonts.amaranth(
                             color: Colors.white,
                             fontSize: width * 0.13,
@@ -108,12 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 icon: const Icon(Icons.password_outlined),
               ),
               const SizedBox(height: 20),
-              MyTextField(
-                autofocus: false,
-                focus: confirmpw,
-                hintText: 'Confirm password',
-                icon: const Icon(Icons.password_outlined),
-              ),
+              
               Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -133,23 +128,23 @@ class _RegisterPageState extends State<RegisterPage> {
               MyButton(
                   color: const Color.fromARGB(255, 12, 144, 113),
                   icon: false,
-                  title: 'Sign Up',
+                  title: 'Sign In',
                   onTap: () {}),
               const SizedBox(height: 7),
               MyButton(
                   color: const Color.fromARGB(255, 160, 160, 160),
                   icon: false,
-                  title: 'Continue with Google',
+                  title: 'Login with Google',
                   onTap: () {}),
               const SizedBox(height: 7),
               GestureDetector(
                 onTap: () {
                   var route = MaterialPageRoute(
-                      builder: (context) => const LoginPage());
+                      builder: (context) => const RegisterPage());
                   Navigator.push(context, route);
                 },
                 child: Text(
-                  'Already have an account? Login',
+                  'Don`t have an account? Create it',
                   style: GoogleFonts.amaranth(
                     color: Colors.grey[600],
                     fontSize: width * 0.038,
@@ -157,7 +152,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 7),
-              
+              Text(
+                'Forgot Password',
+                style: GoogleFonts.amaranth(
+                  color: Colors.grey[600],
+                  fontSize: width * 0.04,
+                ),
+              ),
             ],
           ),
         ),

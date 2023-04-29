@@ -20,6 +20,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return AnimatedButton(
+      shape: BoxShape.rectangle,
       width: width * 0.8,
       height: 45,
       color: color,
@@ -32,13 +33,13 @@ class MyButton extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                Icon(
+               const Icon(
                   Icons.email,
                 ),
                 SizedBox(width: width * 0.1),
                 Text(
                   title,
-                  style: GoogleFonts.signikaNegative(
+                  style: GoogleFonts.amaranth(
                     color: Colors.white,
                     fontSize: width * 0.05,
                     fontWeight: FontWeight.bold,
@@ -51,7 +52,7 @@ class MyButton extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: GoogleFonts.signikaNegative(
+                  style: GoogleFonts.amaranth(
                     color: Colors.white,
                     fontSize: width * 0.05,
                     fontWeight: FontWeight.bold,
