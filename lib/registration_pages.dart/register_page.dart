@@ -3,6 +3,7 @@ import '../helpers/custom_button.dart';
 import '../helpers/fonts.dart';
 import '../helpers/text_field.dart';
 import 'package:flutter/material.dart';
+import 'auth_provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -70,7 +71,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   text: 'Sign Up'),
               const SizedBox(height: 30),
               CustomButton2(
-                onTap: () {},
+                onTap: () {
+                  AuthProvider().createUser('bulanovich5@mail.ru', '123456789');
+                },
                 text: 'Continue with Google',
                 url: 'assets/images/google.png',
               ),
@@ -79,6 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/login');
+                  
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

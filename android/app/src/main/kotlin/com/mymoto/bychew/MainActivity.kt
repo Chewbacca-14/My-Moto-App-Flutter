@@ -1,4 +1,4 @@
-package com.example.motoappv2
+package com.mymoto.bychew
 
 import io.flutter.embedding.android.FlutterActivity
 

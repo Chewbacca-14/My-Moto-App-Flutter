@@ -14,8 +14,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late Image myImage;
+  @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     myImage = Image.asset('assets/images/moto.png', scale: 6);
   }
@@ -33,9 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                 myImage
-                ],
+                children: [myImage],
               )),
               const SizedBox(height: 30),
               Padding(
@@ -78,7 +77,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 65),
-              CustomButton(onTap: () {}, text: 'Sign In'),
+              CustomButton(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/verify');
+                  },
+                  text: 'Sign In'),
               const SizedBox(height: 30),
               CustomButton2(
                 onTap: () {},

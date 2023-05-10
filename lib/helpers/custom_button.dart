@@ -7,7 +7,15 @@ class CustomButton extends StatelessWidget {
   final String text;
   // ignore: prefer_typing_uninitialized_variables
   final onTap;
-  const CustomButton({super.key, required this.onTap, required this.text});
+  
+  final color;
+  const CustomButton(
+      {super.key,
+      required this.onTap,
+      required this.text,
+      
+      this.color
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +23,7 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
         decoration: BoxDecoration(
-            color: MyColors.mainOrange,
+            color: color == null ?  MyColors.mainOrange : color,
             borderRadius: BorderRadius.circular(10)),
         child: Material(
           borderRadius: BorderRadius.circular(10),

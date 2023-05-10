@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.motoappv2">
+    package="com.mymoto.bychew">
     <application
         android:label="motoappv2"
         android:name="${applicationName}"

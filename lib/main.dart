@@ -1,17 +1,18 @@
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/pages/home_page.dart';
+import 'package:motoappv2/registration_pages.dart/verify_page.dart';
 import 'pages/splash_screen.dart';
 import 'registration_pages.dart/login_page.dart';
-import 'registration_pages.dart/profile_type.dart';
+
 import 'registration_pages.dart/register_page.dart';
 
-void main() {
+void main() async {
   
-  runApp(const MyApp()
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,11 +26,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/profiletype': (context) => const ProfileType(),
-        '/home':(context) => const HomePage(),
+        '/verify': (context) => const VerifyPage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
 }
-
-
