@@ -82,6 +82,7 @@ flutter:
     - assets/images/illustration4.png
     - assets/images/moto.png
     - assets/images/verify.jpg
+    - assets/images/read.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

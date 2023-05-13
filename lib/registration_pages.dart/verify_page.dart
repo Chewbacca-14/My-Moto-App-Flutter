@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
 import 'package:motoappv2/helpers/fonts.dart';
+
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({super.key});
@@ -16,16 +18,25 @@ class _VerifyPageState extends State<VerifyPage> {
   int secondsRemaining = 30;
   Timer? timer;
   bool canResend = false;
+  bool isEmailVerified = false;
 
   @override
   void initState() {
     super.initState();
+    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
 
+    if (!isEmailVerified) {
+      sendVerificationEmail();
+
+      Timer.periodic(
+       const Duration(seconds: 3),
+        (_) => checkEmailVerified(),
+      );
+    }
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
           secondsRemaining--;
-          canResend = false;
         });
       } else {
         setState(() {
@@ -35,6 +46,46 @@ class _VerifyPageState extends State<VerifyPage> {
     });
   }
 
+  Future checkEmailVerified() async {
+    var user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      await user.reload();
+      user = FirebaseAuth.instance.currentUser;
+
+      if (user!.emailVerified) {
+        debugPrint('Email пользователя подтвержден');
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        debugPrint('Email пользователя не был подтвержден');
+      }
+    } else {
+      // пользователь не вошел в систему
+      debugPrint('failed to check email verify');
+    }
+  }
+
+  Future sendVerificationEmail() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser!;
+      await user.sendEmailVerification();
+      setState(() => canResend = false);
+      await Future.delayed(
+       const Duration(seconds: 30),
+      );
+      setState(() => canResend = true);
+    } catch (e) {
+      const VerifyPage();
+      if (mounted) {
+        setState(() {
+          secondsRemaining = 30;
+          canResend = false;
+        });
+      }
+    }
+  }
+
   @override
   void dispose() {
     timer?.cancel();
@@ -42,6 +93,21 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   void _resendCode() {
+    sendVerificationEmail();
+    const snackBar = SnackBar(
+      duration: Duration(seconds: 2),
+      backgroundColor: MyColors.emergencyGreen,
+      content: Text(
+        'A new link has been sent',
+        style: TextStyle(
+          fontFamily: 'Roboto',
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
     //other code here
     setState(() {
       secondsRemaining = 30;
@@ -54,10 +120,10 @@ class _VerifyPageState extends State<VerifyPage> {
       body: Center(
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 220),
             Image.asset(
-              'assets/images/verify.jpg',
-              scale: 7,
+              'assets/images/read.png',
+              scale: 6,
             ),
             const SizedBox(height: 10),
             titleText(text: 'Verify Your Email', bold: true, size: 32),
@@ -79,9 +145,8 @@ class _VerifyPageState extends State<VerifyPage> {
                   size: 14,
                   color: MyColors.mainGreySecond),
             ),
-            const SizedBox(height: 250),
+            const SizedBox(height: 80),
             CustomButton(
-              
               color: canResend ? MyColors.mainOrange : MyColors.mainGreyFirst,
               onTap: canResend ? _resendCode : null,
               text: 'Resend Email',

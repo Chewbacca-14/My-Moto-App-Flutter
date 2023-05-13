@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,20 +10,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           children: [
-            SizedBox(height: 60),
-            Row(
+          const  SizedBox(height: 60),
+           const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-               MainCard(mileage: '31 587', name: 'Oil Serivice', date: '08/05/2023'),
-               MainCard(mileage: '29 859', name: 'Brakes', date: '09/06/2022')
+                MainCard(
+                    mileage: '31 587',
+                    name: 'Oil Serivice',
+                    date: '08/05/2023'),
+                MainCard(mileage: '29 859', name: 'Brakes', date: 'user'),
               ],
-            )
+            ),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text(
+                'log out',
+              ),
+            ),
           ],
         ),
       ),

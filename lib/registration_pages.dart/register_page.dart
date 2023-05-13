@@ -3,6 +3,8 @@ import '../helpers/custom_button.dart';
 import '../helpers/fonts.dart';
 import '../helpers/text_field.dart';
 import 'package:flutter/material.dart';
+import '../utils/field_focus_change.dart';
+import '../utils/validation.dart';
 import 'auth_provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -13,6 +15,15 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final FocusNode _email = FocusNode();
+  final FocusNode _pw = FocusNode();
+  final FocusNode _confirmPw = FocusNode();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  bool checkPw = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,27 +52,43 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              const CustomTextField(
+              CustomTextField(
+                autofocus: true,
+                focusNode: _email,
+                onFieldSubmitted: (_) => FocusChange().fieldFocusChange(context, _email, _pw),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) => Validation().validateEmail(value),
+                controller: _emailController,
                 hintText: 'Email',
-                icon: Icon(
+                icon: const Icon(
                   Icons.person_3_outlined,
                 ),
               ),
               const SizedBox(height: 15),
-              const CustomTextField(
+              CustomTextField(
+              
+                focusNode: _pw,
+                onFieldSubmitted: (_) => FocusChange().fieldFocusChange(context, _pw, _confirmPw),
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) => Validation().validatePassword(value),
+                controller: _passwordController,
                 hintText: 'Password',
-                icon: Icon(
+                icon: const Icon(
                   Icons.lock_open_outlined,
                 ),
-                suffixIcon: Icon(Icons.remove_red_eye_rounded),
+                suffixIcon: const Icon(Icons.remove_red_eye_rounded),
               ),
               const SizedBox(height: 15),
-              const CustomTextField(
+              CustomTextField(
+                focusNode: _confirmPw,
+                errorText: checkPw ? 'Pw don`t match' : '',
+                keyboardType: TextInputType.visiblePassword,
+                controller: _confirmPasswordController,
                 hintText: 'Confirm Password',
-                icon: Icon(
+                icon: const Icon(
                   Icons.lock_open_outlined,
                 ),
-                suffixIcon: Icon(Icons.remove_red_eye_rounded),
+                suffixIcon: const Icon(Icons.remove_red_eye_rounded),
               ),
               const SizedBox(height: 35),
               CustomButton(
@@ -72,7 +99,20 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 30),
               CustomButton2(
                 onTap: () {
-                  AuthProvider().createUser('bulanovich5@mail.ru', '123456789');
+                  if (_passwordController.text ==
+                      _confirmPasswordController.text) {
+                    setState(() {
+                      checkPw = false;
+                    });
+                    AuthProvider().createUser(
+                        _emailController.text, _passwordController.text);
+                    _emailController.clear();
+                    _passwordController.clear();
+                  } else {
+                    setState(() {
+                      checkPw = true;
+                    });
+                  }
                 },
                 text: 'Continue with Google',
                 url: 'assets/images/google.png',
@@ -82,7 +122,6 @@ class _RegisterPageState extends State<RegisterPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.pushReplacementNamed(context, '/login');
-                  
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

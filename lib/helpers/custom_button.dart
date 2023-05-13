@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final onTap;
   
+  // ignore: prefer_typing_uninitialized_variables
   final color;
   const CustomButton(
       {super.key,
@@ -23,7 +24,7 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
         decoration: BoxDecoration(
-            color: color == null ?  MyColors.mainOrange : color,
+            color: color ??  MyColors.mainOrange,
             borderRadius: BorderRadius.circular(10)),
         child: Material(
           borderRadius: BorderRadius.circular(10),
