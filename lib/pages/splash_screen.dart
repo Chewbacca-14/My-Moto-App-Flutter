@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
       logoWidth: 130,
       logo: Image.asset('assets/images/white_logo.png'),
       backgroundColor: MyColors.mainOrange,
-      durationInSeconds: 5,
+      durationInSeconds: 2,
       navigator: _isUserLoggedIn ? const HomePage() : const RegisterPage(),
       showLoader: false,
     );

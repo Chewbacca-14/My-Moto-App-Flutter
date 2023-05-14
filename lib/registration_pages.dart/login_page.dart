@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
 import 'package:motoappv2/utils/validation.dart';
-
 import '../helpers/colors_palette.dart';
 import '../helpers/custom_button.dart';
 import '../helpers/fonts.dart';
@@ -21,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-   
+  late bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
-                  onFieldSubmitted: (_) => FocusChange().fieldFocusChange(context, _email, _password),
+                  onFieldSubmitted: (_) => FocusChange()
+                      .fieldFocusChange(context, _email, _password),
                   autofocus: true,
                   focusNode: _email,
                   keyboardType: TextInputType.emailAddress,
@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
+                  obscure: isObscure,
                   focusNode: _password,
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value) => Validation().validatePassword(value),
@@ -72,7 +73,16 @@ class _LoginPageState extends State<LoginPage> {
                   icon: const Icon(
                     Icons.lock_open_outlined,
                   ),
-                  suffixIcon: const Icon(Icons.remove_red_eye_rounded),
+                  suffixIcon: IconButton(
+                    icon: isObscure
+                        ? const Icon(
+                            Icons.remove_red_eye_outlined,
+                          )
+                        : const Icon(Icons.remove_red_eye_rounded),
+                    onPressed: () => setState(() {
+                      isObscure = !isObscure;
+                    }),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
@@ -80,11 +90,16 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      mainText(
-                        text: 'Forgot Password?',
-                        bold: false,
-                        size: 14,
-                        color: MyColors.mainOrange,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/forgotPw');
+                        },
+                        child: mainText(
+                          text: 'Forgot Password?',
+                          bold: false,
+                          size: 14,
+                          color: MyColors.mainOrange,
+                        ),
                       ),
                     ],
                   ),
@@ -92,26 +107,15 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 65),
                 CustomButton(
                     onTap: () {
-                      try{
- AuthProvider().login(context, _emailController.text,
-                          _passwordController.text);
-                      setState(() {
-                        _emailController.clear();
-                        _passwordController.clear();
-                      });
-                      } catch(e) {
-                        
+                      if (_formKey.currentState!.validate()) {
+                        AuthProvider().login(context, _emailController.text,
+                            _passwordController.text);
                       }
-                     
                     },
                     text: 'Sign In'),
                 const SizedBox(height: 30),
                 CustomButton2(
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      print('validate');
-                    }
-                  },
+                  onTap: () {},
                   text: 'Login with Google',
                   url: 'assets/images/google.png',
                 ),

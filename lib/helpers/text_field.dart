@@ -14,10 +14,11 @@ class CustomTextField extends StatefulWidget {
       required this.controller,
       this.keyboardType,
       this.errorText,
+      this.obscure,
       this.validator});
   final String hintText;
   final Icon icon;
-  final Icon? suffixIcon;
+  final suffixIcon;
   final TextEditingController controller;
 
   // ignore: prefer_typing_uninitialized_variables
@@ -26,7 +27,8 @@ class CustomTextField extends StatefulWidget {
   final String? errorText;
   final FocusNode? focusNode;
   final bool? autofocus;
-final onFieldSubmitted;
+  final onFieldSubmitted;
+  final bool? obscure;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -37,6 +39,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 30),
       child: TextFormField(
+        
+        obscureText: widget.obscure ?? false,
         onFieldSubmitted: widget.onFieldSubmitted,
         autofocus: widget.autofocus ?? false,
         focusNode: widget.focusNode,
@@ -44,7 +48,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         controller: widget.controller,
         decoration: InputDecoration(
-          
           errorText: widget.errorText,
           border: InputBorder.none,
           hintText: widget.hintText,
@@ -53,8 +56,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: MyColors.mainGreySecond,
             fontSize: 16,
           ),
+          
           icon: widget.icon,
           suffixIcon: widget.suffixIcon,
+        
         ),
       ),
     );

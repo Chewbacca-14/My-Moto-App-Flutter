@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,8 +18,8 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-          const  SizedBox(height: 60),
-           const Row(
+            const SizedBox(height: 60),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 MainCard(
@@ -30,11 +31,16 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.pushReplacementNamed(context, '/login');
-              },
+               FirebaseFirestore.instance
+                .collection('data')
+                .add({'text': 'data added through app'});
+              }
+                // FirebaseAuth.instance.signOut();
+                // Navigator.pushReplacementNamed(context, '/login');
+                ,
+              
               child: const Text(
-                'log out',
+                'add data',
               ),
             ),
           ],
@@ -42,4 +48,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
+
+  
+} 

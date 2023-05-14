@@ -7,7 +7,7 @@ class Validation {
   } else if (!regExp.hasMatch(value)) {
     return 'Invalid email address.';
   } else {
-    return '';
+    return null;
   }
 }
 //validate password
@@ -21,7 +21,7 @@ String? validatePassword(String? password) {
   } else if (password.contains(' ')) {
     return 'The password cannot contain spaces';
   } else {
-    return '';
+    return null;
   }
 }
 

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:motoappv2/components/custom_dialog.dart';
 import 'package:motoappv2/pages/home_page.dart';
+import 'package:motoappv2/registration_pages.dart/forgot_password.dart';
 import 'package:motoappv2/registration_pages.dart/verify_page.dart';
 import 'pages/splash_screen.dart';
 import 'registration_pages.dart/login_page.dart';
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/verify': (context) => const VerifyPage(),
         '/home': (context) => const HomePage(),
+        '/forgotPw':(context) => const ForgotPaswordPage(),
+        '/dialog': (context) => CustomDialog(),
       },
     );
   }
