@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/verify': (context) => const VerifyPage(),
         '/home': (context) => const HomePage(),
         '/forgotPw':(context) => const ForgotPaswordPage(),
-        '/dialog': (context) => CustomDialog(),
+        '/dialog': (context) => const CustomDialog(),
       },
     );
   }

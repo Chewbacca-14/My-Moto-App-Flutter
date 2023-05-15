@@ -1,4 +1,6 @@
 // Импортируем материалы
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
@@ -13,17 +15,23 @@ class CustomDialog extends StatefulWidget {
 
 // Создаем состояние виджета
 class _CustomDialogState extends State<CustomDialog> {
+  var uid = FirebaseAuth.instance.currentUser!.uid;
   DateTime _selectedDate = DateTime.now();
-
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Container(
-        height: 300,
-        width: 300,
+        height: 330,
+        width: 330,
         child: Column(
           children: [
             Text('${widget.text}'),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _controller,
+              decoration: InputDecoration(hintText: 'mileage'),
+            ),
             SizedBox(height: 40),
             Center(
               child: Container(
@@ -40,11 +48,23 @@ class _CustomDialogState extends State<CustomDialog> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+                onPressed: () {
+                  addData('${widget.text}', uid, _controller.text,
+                      _selectedDate.toString());
+                },
+                child: const Text('Save')),
           ],
         ),
       ),
     );
   }
-}
 
-// Создаем главный виджет
+  void addData(String name, String uid, String mileage, String date) {
+    final fixedDate =
+        '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}';
+    FirebaseFirestore.instance.collection('data').add(
+        {'name': name, 'uid': uid, 'mileage': mileage, 'date': fixedDate,});
+  }
+}

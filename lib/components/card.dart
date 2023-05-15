@@ -5,7 +5,7 @@ import '../helpers/colors_palette.dart';
 import 'custom_dialog.dart';
 
 class MainCard extends StatelessWidget {
-  final String mileage;
+  final String? mileage;
   final String name;
   final String date;
   final String? url;
