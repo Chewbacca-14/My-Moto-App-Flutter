@@ -56,7 +56,7 @@ class _VerifyPageState extends State<VerifyPage> {
       if (user!.emailVerified) {
         debugPrint('Email пользователя подтвержден');
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/menu');
       } else {
         debugPrint('Email пользователя не был подтвержден');
       }

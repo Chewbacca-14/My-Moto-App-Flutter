@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
@@ -72,7 +71,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                           .forgotPassword(_emailController.text, context);
                       if (result == true) {
                       timer =
-                          Timer.periodic(Duration(seconds: 1), (Timer timer) {
+                          Timer.periodic(const Duration(seconds: 1), (Timer timer) {
                         if (secondsRemaining > 0) {
                           setState(() {
                             secondsRemaining--;

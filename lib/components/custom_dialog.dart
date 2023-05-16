@@ -2,40 +2,58 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:motoappv2/helpers/custom_button.dart';
+
+import 'package:motoappv2/helpers/text_field.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
+
+import '../helpers/colors_palette.dart';
+import '../utils/formatter.dart';
 
 // Создаем виджет состояния для хранения введенного текста
 class CustomDialog extends StatefulWidget {
   final String? text;
+
   const CustomDialog({super.key, this.text});
 
   @override
-  _CustomDialogState createState() => _CustomDialogState();
+  State<CustomDialog> createState() => _CustomDialogState();
 }
 
 // Создаем состояние виджета
 class _CustomDialogState extends State<CustomDialog> {
+  late bool isNull = false;
   var uid = FirebaseAuth.instance.currentUser!.uid;
   DateTime _selectedDate = DateTime.now();
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Container(
-        height: 330,
-        width: 330,
+      content: SizedBox(
+        height: 300,
+        width: 300,
         child: Column(
           children: [
-            Text('${widget.text}'),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: _controller,
-              decoration: InputDecoration(hintText: 'mileage'),
+            Text(
+              '${widget.text}',
+              style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 30),
+            CustomTextField(
+                errorText: isNull ? 'Can`t be empty' : null,
+                format: [ThousandsSeparatorInputFormatter()],
+                maxLength: 9,
+                border: const UnderlineInputBorder(),
+                keyboardType: TextInputType.number,
+                hintText: 'Mileage',
+                controller: _controller),
+            const SizedBox(height: 15),
             Center(
-              child: Container(
-                height: 150,
+              child: SizedBox(
+                height: 100,
                 child: ScrollDatePicker(
                   selectedDate: _selectedDate,
                   onDateTimeChanged: (DateTime value) {
@@ -49,22 +67,73 @@ class _CustomDialogState extends State<CustomDialog> {
               ),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: () {
-                  addData('${widget.text}', uid, _controller.text,
-                      _selectedDate.toString());
+            CustomButton(
+                onTap: () {
+                  if (_controller.text.isEmpty) {
+                    setState(() {
+                      isNull = true;
+                    });
+                  } else {
+                    updateDataIfUidAndNameExist('${widget.text}', uid,
+                        _controller.text, _selectedDate.toString());
+                  }
                 },
-                child: const Text('Save')),
+                text: 'Save')
           ],
         ),
       ),
     );
   }
 
-  void addData(String name, String uid, String mileage, String date) {
-    final fixedDate =
-        '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}';
-    FirebaseFirestore.instance.collection('data').add(
-        {'name': name, 'uid': uid, 'mileage': mileage, 'date': fixedDate,});
+  Future<void> updateDataIfUidAndNameExist(
+      String name, String uid, String mileage, String date) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('data')
+        .where('uid', isEqualTo: uid)
+        .where('name', isEqualTo: name)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final fixedDate =
+          '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
+      // Если документ существует, обновляем данные
+      try {
+        final documentSnapshot = querySnapshot.docs.first;
+        await documentSnapshot.reference.update({
+          'name': name,
+          'uid': uid,
+          'mileage': mileage,
+          'date': fixedDate,
+        });
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: MyColors.emergencyGreen,
+          content: Text(
+            'Saved',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ));
+      } catch (e) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: MyColors.emergencyGreen,
+          content: Text(
+            'Error, try one more time.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ));
+      }
+    } else {
+      final fixedDate =
+          '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
+      // Если документ не существует, создаем новый
+      await FirebaseFirestore.instance.collection('data').add({
+        'name': name,
+        'uid': uid,
+        'mileage': mileage,
+        'date': fixedDate,
+      });
+    }
   }
 }

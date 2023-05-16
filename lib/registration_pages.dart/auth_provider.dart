@@ -27,7 +27,7 @@ class AuthProvider {
         email: email,
         password: password,
       );
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/menu');
       debugPrint('Login');
     } catch (e) {
       // Обработка ошибки:

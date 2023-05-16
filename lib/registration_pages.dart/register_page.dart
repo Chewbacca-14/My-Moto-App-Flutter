@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 icon: const Icon(
                   Icons.lock_open_outlined,
                 ),
-                suffixIcon: const Icon(Icons.remove_red_eye_rounded),
+                suffixIcon: IconButton(icon: const Icon(Icons.remove_red_eye_rounded), onPressed: () {},) 
               ),
               const SizedBox(height: 15),
               CustomTextField(
@@ -88,12 +88,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 icon: const Icon(
                   Icons.lock_open_outlined,
                 ),
-                suffixIcon: const Icon(Icons.remove_red_eye_rounded),
+                suffixIcon: IconButton(icon: const Icon(Icons.remove_red_eye_rounded), onPressed: () {},)
               ),
               const SizedBox(height: 35),
               CustomButton(
                   onTap: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/menu');
                   },
                   text: 'Sign Up'),
               const SizedBox(height: 30),

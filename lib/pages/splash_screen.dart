@@ -9,6 +9,7 @@ import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
 import 'package:motoappv2/registration_pages.dart/register_page.dart';
 
 import '../helpers/colors_palette.dart';
+import 'menu_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
       logo: Image.asset('assets/images/white_logo.png'),
       backgroundColor: MyColors.mainOrange,
       durationInSeconds: 2,
-      navigator: _isUserLoggedIn ? const HomePage() : const RegisterPage(),
+      navigator: _isUserLoggedIn ?  MenuPage() : const RegisterPage(),
       showLoader: false,
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'colors_palette.dart';
 
@@ -9,16 +10,19 @@ class CustomTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.autofocus,
       this.focusNode,
-      required this.icon,
+       this.icon,
       this.suffixIcon,
       required this.controller,
       this.keyboardType,
       this.errorText,
       this.obscure,
+      this.border,
+      this.format,
+      this.maxLength,
       this.validator});
   final String hintText;
-  final Icon icon;
-  final suffixIcon;
+  final Icon? icon;
+  final IconButton? suffixIcon;
   final TextEditingController controller;
 
   // ignore: prefer_typing_uninitialized_variables
@@ -27,8 +31,11 @@ class CustomTextField extends StatefulWidget {
   final String? errorText;
   final FocusNode? focusNode;
   final bool? autofocus;
-  final onFieldSubmitted;
+  final void Function(String)? onFieldSubmitted;
   final bool? obscure;
+  final List<TextInputFormatter>? format;
+  final int? maxLength;
+  final InputBorder? border;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -39,7 +46,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 30),
       child: TextFormField(
-        
+        maxLines: 1,
+        maxLength: widget.maxLength,
+        inputFormatters: widget.format,
         obscureText: widget.obscure ?? false,
         onFieldSubmitted: widget.onFieldSubmitted,
         autofocus: widget.autofocus ?? false,
@@ -48,18 +57,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         controller: widget.controller,
         decoration: InputDecoration(
+          counterText: '',
           errorText: widget.errorText,
-          border: InputBorder.none,
+          border: widget.border ?? InputBorder.none,
           hintText: widget.hintText,
           hintStyle: const TextStyle(
             fontFamily: 'Roboto',
             color: MyColors.mainGreySecond,
             fontSize: 16,
           ),
-          
           icon: widget.icon,
           suffixIcon: widget.suffixIcon,
-        
         ),
       ),
     );
