@@ -115,11 +115,13 @@ class _LoginPageState extends State<LoginPage> {
                     text: 'Sign In'),
                 const SizedBox(height: 30),
                 CustomButton2(
-                  onTap: () {},
+                  onTap: () {
+                    AuthProvider().signInWithGoogle(context);
+                  },
                   text: 'Login with Google',
                   url: 'assets/images/google.png',
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 5),
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {

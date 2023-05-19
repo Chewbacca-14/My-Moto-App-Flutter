@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
+import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,100 +34,122 @@ class _HomePageState extends State<HomePage> {
         .where('uid', isEqualTo: uid)
         .snapshots();
     return Scaffold(
-      body: StreamBuilder(
-        stream: stream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var doc = snapshot.data!.docs;
-
-            var oil = doc.firstWhereOrNull(((d) => d['name'] == names[0]));
-            var brakes = doc.firstWhereOrNull(((d) => d['name'] == names[1]));
-            var antifreeze =
-                doc.firstWhereOrNull(((d) => d['name'] == names[2]));
-            var bf = doc.firstWhereOrNull(((d) => d['name'] == names[3]));
-            var of = doc.firstWhereOrNull(((d) => d['name'] == names[4]));
-            var chain = doc.firstWhereOrNull(((d) => d['name'] == names[5]));
-            var battery = doc.firstWhereOrNull(((d) => d['name'] == names[6]));
-            var fork = doc.firstWhereOrNull(((d) => d['name'] == names[7]));
-
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Center(
-                child: Column(
+        body: StreamBuilder(
+      stream: stream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return const SizedBox();
+        var doc = snapshot.data!.docs;
+        return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 60),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(height: 60),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MainCard(
-                          mileage: oil?['mileage'] ?? '-',
-                          name: names[0],
-                          date: oil?['date'] ?? '-',
-                        ),
-                        MainCard(
-                          mileage: brakes?['mileage'] ?? '-',
-                          name: names[1],
-                          date: brakes?['date'] ?? '-',
-                        ),
-                      ],
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[0]))?['mileage'] ??
+                          '-',
+                      name: names[0],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[0]))?['date'] ??
+                          '-',
                     ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MainCard(
-                          mileage: antifreeze?['mileage'] ?? '-',
-                          name: names[2],
-                          date: antifreeze?['date'] ?? '-',
-                        ),
-                        MainCard(
-                          mileage: bf?['mileage'] ?? '-',
-                          name: names[3],
-                          date: bf?['date'] ?? '-',
-                        ),
-                      ],
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[1]))?['mileage'] ??
+                          '-',
+                      name: names[1],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[1]))?['date'] ??
+                          '-',
                     ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MainCard(
-                          mileage: of?['mileage'] ?? '-',
-                          name: names[4],
-                          date: of?['date'] ?? '-',
-                        ),
-                        MainCard(
-                          mileage: chain?['mileage'] ?? '-',
-                          name: names[5],
-                          date: chain?['date'] ?? '-',
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MainCard(
-                          mileage: battery?['mileage'] ?? '-',
-                          name: names[6],
-                          date: battery?['date'] ?? '-',
-                        ),
-                        MainCard(
-                          mileage: fork?['mileage'] ?? '-',
-                          name: names[7],
-                          date: fork?['date'] ?? '-',
-                        ),
-                      ],
-                    ),
-                   
                   ],
                 ),
-              ),
-            );
-          } 
-          return const SizedBox();
-        },
-      ),
-    );
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[2]))?['mileage'] ??
+                          '-',
+                      name: names[2],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[2]))?['date'] ??
+                          '-',
+                    ),
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[3]))?['mileage'] ??
+                          '-',
+                      name: names[3],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[3]))?['date'] ??
+                          '-',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[4]))?['mileage'] ??
+                          '-',
+                      name: names[4],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[4]))?['date'] ??
+                          '-',
+                    ),
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[5]))?['mileage'] ??
+                          '-',
+                      name: names[5],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[5]))?['date'] ??
+                          '-',
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[6]))?['mileage'] ??
+                          '-',
+                      name: names[6],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[6]))?['date'] ??
+                          '-',
+                    ),
+                    MainCard(
+                      mileage: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[7]))?['mileage'] ??
+                          '-',
+                      name: names[7],
+                      date: doc.firstWhereOrNull(
+                              ((d) => d['name'] == names[7]))?['date'] ??
+                          '-',
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      AuthProvider().signOut(context);
+                    },
+                    child: Text('sign out'))
+              ],
+            ),
+          ),
+        );
+      },
+    ));
   }
 }

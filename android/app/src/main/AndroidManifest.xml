@@ -2,7 +2,7 @@
     package="com.mymoto.bychew">
     <application
         android:usesCleartextTraffic="true"
-        android:label="motoappv2"
+        android:label="My Moto"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         

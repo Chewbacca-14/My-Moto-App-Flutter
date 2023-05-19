@@ -28,61 +28,71 @@ class _CustomDialogState extends State<CustomDialog> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      content: SizedBox(
-        height: 300,
-        width: 300,
-        child: Column(
-          children: [
-            Text(
-              '${widget.text}',
-              style: const TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 30),
-            CustomTextField(
-                errorText: isNull ? 'Can`t be empty' : null,
-                format: [ThousandsSeparatorInputFormatter()],
-                maxLength: 9,
-                border: const UnderlineInputBorder(),
-                keyboardType: TextInputType.number,
-                hintText: 'Mileage',
-                controller: _controller),
-            const SizedBox(height: 15),
-            Center(
-              child: SizedBox(
-                height: 100,
-                child: ScrollDatePicker(
-                  selectedDate: _selectedDate,
-                  onDateTimeChanged: (DateTime value) {
-                    setState(
-                      () {
-                        _selectedDate = value;
-                      },
-                    );
-                  },
+    return 
+      
+      AlertDialog(
+        backgroundColor: Colors.transparent,
+        content: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+           
+          ),
+          height: 300,
+          width: 300,
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                '${widget.text}',
+                style: const TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              CustomTextField(
+                  errorText: isNull ? 'Can`t be empty' : null,
+                  format: [ThousandsSeparatorInputFormatter()],
+                  maxLength: 9,
+                  border: const UnderlineInputBorder(),
+                  keyboardType: TextInputType.number,
+                  hintText: 'Mileage',
+                  controller: _controller),
+              const SizedBox(height: 15),
+              Center(
+                child: SizedBox(
+                  height: 100,
+                  child: ScrollDatePicker(
+                    selectedDate: _selectedDate,
+                    onDateTimeChanged: (DateTime value) {
+                      setState(
+                        () {
+                          _selectedDate = value;
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            CustomButton(
-                onTap: () {
-                  if (_controller.text.isEmpty) {
-                    setState(() {
-                      isNull = true;
-                    });
-                  } else {
-                    updateDataIfUidAndNameExist('${widget.text}', uid,
-                        _controller.text, _selectedDate.toString());
-                  }
-                },
-                text: 'Save')
-          ],
+              const SizedBox(height: 10),
+              CustomButton(
+                  onTap: () {
+                    if (_controller.text.isEmpty) {
+                      setState(() {
+                        isNull = true;
+                      });
+                    } else {
+                      updateDataIfUidAndNameExist('${widget.text}', uid,
+                          _controller.text, _selectedDate.toString());
+                    }
+                  },
+                  text: 'Save')
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    
   }
 
   Future<void> updateDataIfUidAndNameExist(
@@ -99,6 +109,7 @@ class _CustomDialogState extends State<CustomDialog> {
           '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
       // Если документ существует, обновляем данные
       try {
+        
         final documentSnapshot = querySnapshot.docs.first;
         await documentSnapshot.reference.update({
           'name': name,

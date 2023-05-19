@@ -19,7 +19,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String buttonText = 'Send';
-  int secondsRemaining = 5;
+  int secondsRemaining = 30;
   Timer? timer;
   bool canResend = true;
   bool isEmailVerified = false;
@@ -80,7 +80,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                         } else {
                           timer.cancel();
                           setState(() {
-                            secondsRemaining = 5;
+                            secondsRemaining = 30;
                             canResend = true;
                           });
                         }

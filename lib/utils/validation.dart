@@ -25,4 +25,15 @@ String? validatePassword(String? password) {
   }
 }
 
+//confirmPw validation
+String? validateConfirmPassword(String? password) {
+  if (password!.isEmpty) {
+    return 'Please enter a password';
+  }  else {
+    return null;
+  }
+}
+
+
+
 }

@@ -1,20 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
+
 // import 'package:flutter/material.dart';
 
 class AuthProvider {
 //create new user
-  Future<void> createUser(String email, String password) async {
+  Future<void> createUser(String email, String password, context) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
+      Navigator.pushReplacementNamed(context, '/verify');
       debugPrint('New user created');
-    } catch (e) {
-      debugPrint(e.toString());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: MyColors.textRed,
+          content: Text(
+            'Account already exist.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: MyColors.textRed,
+          content: Text(
+            'Error, please try later.',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ));
+      }
     }
   }
 
@@ -27,16 +45,20 @@ class AuthProvider {
         email: email,
         password: password,
       );
-      Navigator.pushReplacementNamed(context, '/menu');
+     if (await isEmailVerified()) {
+  Navigator.pushReplacementNamed(context, '/menu'); 
+} else { 
+  Navigator.pushReplacementNamed(context, '/verify'); 
+}
       debugPrint('Login');
     } catch (e) {
       // Обработка ошибки:
       String errorMessage = '';
       if (e is FirebaseAuthException) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-          errorMessage = 'Неверный адрес электронной почты и / или пароль';
+          errorMessage = 'Invalid email and/or password';
         } else {
-          errorMessage = 'Ошибка входа в систему';
+          errorMessage = 'Login error';
         }
       }
       // Отображение ошибки в виде snackbar:
@@ -75,4 +97,58 @@ class AuthProvider {
       return false;
     }
   }
+
+  //google auth
+  Future<void> signInWithGoogle(context) async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: gAuth.idToken,
+      accessToken: gAuth.accessToken,
+    );
+    try {
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      Navigator.pushReplacementNamed(context, '/menu');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: MyColors.textRed,
+        content: Text(
+          'Error, please try later.',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ));
+    }
+  }
+
+  void signOut(context) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    try {
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.disconnect();
+      }
+
+      await auth.signOut();
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: MyColors.textRed,
+        content: Text(
+          'Error, please try later.',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ));
+    }
+  }
+
+  //check email verification
+  Future<bool> isEmailVerified() async { 
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) { 
+    await user.reload();
+    return user.emailVerified; 
+  } else { 
+    return false; 
+  } 
+}
 }

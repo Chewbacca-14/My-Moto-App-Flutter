@@ -6,7 +6,6 @@ import 'package:motoappv2/helpers/colors_palette.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
 import 'package:motoappv2/helpers/fonts.dart';
 
-
 class VerifyPage extends StatefulWidget {
   const VerifyPage({super.key});
 
@@ -17,6 +16,7 @@ class VerifyPage extends StatefulWidget {
 class _VerifyPageState extends State<VerifyPage> {
   int secondsRemaining = 30;
   Timer? timer;
+  Timer? timer2;
   bool canResend = false;
   bool isEmailVerified = false;
 
@@ -24,16 +24,18 @@ class _VerifyPageState extends State<VerifyPage> {
   void initState() {
     super.initState();
     isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-
     if (!isEmailVerified) {
       sendVerificationEmail();
-
-      Timer.periodic(
-       const Duration(seconds: 3),
-        (_) => checkEmailVerified(),
-      );
-    }
-    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+     timer2 = Timer.periodic(Duration(seconds: 3), (_) async {
+        await checkEmailVerified();
+        if (isEmailVerified) {
+          timer?.cancel();
+          timer2?.cancel();
+          Navigator.pushReplacementNamed(context, '/menu');
+        }
+      });
+    } else {}
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
           secondsRemaining--;
@@ -46,23 +48,19 @@ class _VerifyPageState extends State<VerifyPage> {
     });
   }
 
-  Future checkEmailVerified() async {
-    var user = FirebaseAuth.instance.currentUser;
-
+  Future<void> checkEmailVerified() async {
+    User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       await user.reload();
-      user = FirebaseAuth.instance.currentUser;
-
-      if (user!.emailVerified) {
-        debugPrint('Email пользователя подтвержден');
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/menu');
-      } else {
-        debugPrint('Email пользователя не был подтвержден');
+      if (mounted) {
+        setState(() {
+          isEmailVerified = user.emailVerified;
+        });
       }
     } else {
-      // пользователь не вошел в систему
-      debugPrint('failed to check email verify');
+      setState(() {
+        isEmailVerified = false;
+      });
     }
   }
 
@@ -72,7 +70,7 @@ class _VerifyPageState extends State<VerifyPage> {
       await user.sendEmailVerification();
       setState(() => canResend = false);
       await Future.delayed(
-       const Duration(seconds: 30),
+        const Duration(seconds: 30),
       );
       setState(() => canResend = true);
     } catch (e) {

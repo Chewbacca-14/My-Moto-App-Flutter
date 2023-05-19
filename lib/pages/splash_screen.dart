@@ -3,7 +3,7 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:motoappv2/pages/home_page.dart';
+
 
 import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
 import 'package:motoappv2/registration_pages.dart/register_page.dart';
