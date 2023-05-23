@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +28,7 @@ class _VerifyPageState extends State<VerifyPage> {
     isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
     if (!isEmailVerified) {
       sendVerificationEmail();
-     timer2 = Timer.periodic(Duration(seconds: 3), (_) async {
+     timer2 = Timer.periodic(const Duration(seconds: 3), (_) async {
         await checkEmailVerified();
         if (isEmailVerified) {
           timer?.cancel();
@@ -35,7 +37,7 @@ class _VerifyPageState extends State<VerifyPage> {
         }
       });
     } else {}
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
           secondsRemaining--;

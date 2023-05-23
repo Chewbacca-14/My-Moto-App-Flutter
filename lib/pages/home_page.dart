@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
-import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
+import 'package:motoappv2/providers/auth_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
         .where('uid', isEqualTo: uid)
         .snapshots();
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
         body: StreamBuilder(
       stream: stream,
       builder: (context, snapshot) {
@@ -144,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       AuthProvider().signOut(context);
                     },
-                    child: Text('sign out'))
+                    child: const Text('sign out'))
               ],
             ),
           ),

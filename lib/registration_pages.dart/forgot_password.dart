@@ -5,7 +5,7 @@ import 'package:motoappv2/helpers/colors_palette.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
 import 'package:motoappv2/helpers/fonts.dart';
 import 'package:motoappv2/helpers/text_field.dart';
-import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
+import 'package:motoappv2/providers/auth_provider.dart';
 import 'package:motoappv2/utils/validation.dart';
 
 class ForgotPaswordPage extends StatefulWidget {

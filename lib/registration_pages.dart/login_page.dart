@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:motoappv2/registration_pages.dart/auth_provider.dart';
+import 'package:motoappv2/providers/auth_provider.dart';
 import 'package:motoappv2/utils/validation.dart';
 import '../helpers/colors_palette.dart';
 import '../helpers/custom_button.dart';

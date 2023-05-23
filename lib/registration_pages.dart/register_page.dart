@@ -5,7 +5,7 @@ import '../helpers/text_field.dart';
 import 'package:flutter/material.dart';
 import '../utils/field_focus_change.dart';
 import '../utils/validation.dart';
-import 'auth_provider.dart';
+import '../providers/auth_provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

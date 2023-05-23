@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+
+import 'package:motoappv2/pages/chat_gpt_page.dart';
 import 'package:motoappv2/pages/home_page.dart';
+import 'package:motoappv2/pages/notes_page.dart';
+import 'package:motoappv2/pages/settings_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 void main() {
-  runApp(MenuPage());
+  runApp(const MenuPage());
 }
 
 class MenuPage extends StatefulWidget {
-  static final title = 'salomon_bottom_bar';
+  
+
+  const MenuPage({super.key});
 
   @override
-  _MenuPageState createState() => _MenuPageState();
+  State<MenuPage> createState() => _MenuPageState();
 }
 
 class _MenuPageState extends State<MenuPage> {
   var _currentIndex = 0;
   List<Widget> pageList = [
-   HomePage()
+   const HomePage(),
+   const ChatScreen(),
+   const NotesPage(),
+   const SettingsPage(),
   ];
 
   @override
@@ -28,30 +37,30 @@ class _MenuPageState extends State<MenuPage> {
           items: [
             /// Home
             SalomonBottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home"),
-              selectedColor: Colors.purple,
+              icon: const Icon(Icons.home_outlined),
+              title: const Text("Home"),
+              selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
             /// Likes
             SalomonBottomBarItem(
-              icon: Icon(Icons.favorite_border),
-              title: Text("Likes"),
-              selectedColor: Colors.pink,
+              icon: const Icon(Icons.chat_outlined),
+              title: const Text("Chat Bot"),
+               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
             /// Search
             SalomonBottomBarItem(
-              icon: Icon(Icons.search),
-              title: Text("Search"),
-              selectedColor: Colors.orange,
+              icon: const Icon(Icons.notes_rounded),
+              title: const Text("Notes"),
+              selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
             /// Profile
             SalomonBottomBarItem(
-              icon: Icon(Icons.person),
-              title: Text("Profile"),
-              selectedColor: Colors.teal,
+              icon: const Icon(Icons.settings_rounded),
+              title: const Text("Settings"),
+              selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
           ],
         ),

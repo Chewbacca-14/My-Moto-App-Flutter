@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 Text titleText(
     {required String text, required bool bold, required double size}) {
   return Text(
@@ -27,4 +28,12 @@ Text mainText(
         fontSize: size,
         fontWeight: bold ? FontWeight.bold : FontWeight.normal),
   );
+}
+
+TextStyle mainTextStyle( double size, context) {
+  return TextStyle(
+      fontFamily: 'Roboto',
+      color: Theme.of(context).colorScheme.primary,
+      fontSize: size,
+      );
 }
