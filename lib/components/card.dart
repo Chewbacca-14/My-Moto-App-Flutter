@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/fonts.dart';
-
-import '../helpers/colors_palette.dart';
 import 'custom_dialog.dart';
 
 class MainCard extends StatelessWidget {
@@ -14,85 +12,110 @@ class MainCard extends StatelessWidget {
     required this.mileage,
     required this.name,
     required this.date,
-    
     this.url,
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
+     ThemeData themeData = Theme.of(context);
+    bool isLightTheme = themeData.brightness == Brightness.light;
     return GestureDetector(
-      onTap:() async {
-              
-              await showDialog(
-                context: context,
-                builder: (context) => CustomDialog(text: name),
-              );
-            },
-      child: Container(
-          width: 170,
-          height: 170,
-          decoration: BoxDecoration(
-            color: MyColors.secondaryWhite,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: const [
-              BoxShadow(
-                  color: Color.fromARGB(255, 202, 202, 202),
-                  blurRadius: 5,
-                  spreadRadius: 0.3),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0).copyWith(left: 7),
-                  child: const Row(
+      onTap: () async {
+        await showDialog(
+          context: context,
+          builder: (context) => CustomDialog(text: name),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(40).copyWith(top: 10, bottom: 10),
+        child: Container(
+            height: 120,
+            decoration: BoxDecoration(
+              color: isLightTheme ? null : Theme.of(context).colorScheme.primaryContainer,
+             image: isLightTheme
+                  ? DecorationImage(
+                      image: AssetImage('assets/images/bgcard.jpg'),
+                      fit: BoxFit.fill) :
+                  null,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                    color: Color.fromARGB(255, 202, 202, 202),
+                    blurRadius: 5,
+                    spreadRadius: 0.3),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.car_crash_sharp,
-                            size: 40,
-                            color: Color.fromARGB(255, 4, 170, 196),
-                          ),
-                          
-                        ],
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: titleText(
+                              text: name,
+                              bold: true,
+                              size: 18,
+                              context: context),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ColorFiltered(
+                          colorFilter: const ColorFilter.matrix([
+                            0.7, 0, 0, 0,
+                            1, // уменьшает насыщенность красного цвета
+                            0, 0.6, 0, 0,
+                            1, // уменьшает насыщенность зеленого цвета
+                            0, 0, 0.6, 0,
+                            1, // уменьшает насыщенность синего цвета
+                            0, 0, 0, 1,
+                            1, // оставляет альфа-канал без изменений
+                          ]),
+                          child: Image.asset(url ?? 'assets/images/Oil.png',
+                              scale: 14),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                titleText(text: name, bold: true, size: 18),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    const Icon(Icons.watch_later_rounded,
-                        size: 20, color: Colors.green),
-                    const SizedBox(width: 10),
-                    mainText(
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const SizedBox(width: 20),
+                      const Icon(Icons.watch_later_rounded,
+                          size: 20, color: Colors.green),
+                      const SizedBox(width: 10),
+                      mainText(
                         text: date,
                         bold: false,
                         size: 16,
-                        color: MyColors.mainGreySecond),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Icon(Icons.where_to_vote_rounded,
-                        size: 20, color: Colors.red),
-                    const SizedBox(width: 10),
-                    mainText(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                       const SizedBox(width: 20),
+                      const Icon(Icons.where_to_vote_rounded,
+                          size: 20, color: Colors.red),
+                      const SizedBox(width: 10),
+                      mainText(
                         text: '$mileage km',
                         bold: false,
                         size: 16,
-                        color: MyColors.mainGreySecond),
-                  ],
-                ),
-              ],
-            ),
-          )),
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

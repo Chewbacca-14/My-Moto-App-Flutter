@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
-import 'package:motoappv2/providers/auth_provider.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,15 +18,28 @@ class _HomePageState extends State<HomePage> {
   var user = FirebaseAuth.instance.currentUser;
 
   List<String> names = [
-    'Oil Change',
-    'Brake Pads',
+    'Oil',
+    'Brakes',
     'Antifreeze',
     'Brake Fluid',
     'Oil Filter',
-    'Chain Change',
-    'Battery Change',
-    'Fork Overhaul',
+    'Chain',
+    'Battery',
+    'Fork',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    shuffleItems(); // Shuffle the items when the state is initialized
+  }
+
+  void shuffleItems() {
+    setState(() {
+      names.shuffle(Random()); // Shuffle the list using a random seed
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var stream = FirebaseFirestore.instance
@@ -34,123 +47,28 @@ class _HomePageState extends State<HomePage> {
         .where('uid', isEqualTo: uid)
         .snapshots();
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: StreamBuilder(
-      stream: stream,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) return const SizedBox();
-        var doc = snapshot.data!.docs;
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 60),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[0]))?['mileage'] ??
-                          '-',
-                      name: names[0],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[0]))?['date'] ??
-                          '-',
-                    ),
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[1]))?['mileage'] ??
-                          '-',
-                      name: names[1],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[1]))?['date'] ??
-                          '-',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[2]))?['mileage'] ??
-                          '-',
-                      name: names[2],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[2]))?['date'] ??
-                          '-',
-                    ),
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[3]))?['mileage'] ??
-                          '-',
-                      name: names[3],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[3]))?['date'] ??
-                          '-',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[4]))?['mileage'] ??
-                          '-',
-                      name: names[4],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[4]))?['date'] ??
-                          '-',
-                    ),
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[5]))?['mileage'] ??
-                          '-',
-                      name: names[5],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[5]))?['date'] ??
-                          '-',
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[6]))?['mileage'] ??
-                          '-',
-                      name: names[6],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[6]))?['date'] ??
-                          '-',
-                    ),
-                    MainCard(
-                      mileage: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[7]))?['mileage'] ??
-                          '-',
-                      name: names[7],
-                      date: doc.firstWhereOrNull(
-                              ((d) => d['name'] == names[7]))?['date'] ??
-                          '-',
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      AuthProvider().signOut(context);
-                    },
-                    child: const Text('sign out'))
-              ],
-            ),
-          ),
-        );
-      },
-    ));
+            stream: stream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return const SizedBox();
+              var doc = snapshot.data!.docs;
+              return ListView.builder(
+                itemCount: names.length,
+                itemBuilder: (context, index) {
+                  return MainCard(
+                    url: names[index] == 'Oil Filter' ? 'assets/images/oilfilter.png' 
+                    : names[index] == 'Brake Fluid' ? 'assets/images/brakefluid.png' : 'assets/images/${names[index].toLowerCase()}.png',
+                    mileage: doc.firstWhereOrNull(
+                            ((d) => d['name'] == names[index]))?['mileage'] ??
+                        '00 000',
+                    name: names[index],
+                    date: doc.firstWhereOrNull(
+                            ((d) => d['name'] == names[index]))?['date'] ??
+                        '00.00.0000',
+                  );
+                },
+              );
+            }));
   }
 }

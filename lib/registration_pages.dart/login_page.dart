@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      titleText(text: 'Login', bold: true, size: 32),
+                      titleText(text: 'Login', bold: true, size: 32,  context: context),
                     ],
                   ),
                 ),

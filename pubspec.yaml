@@ -49,6 +49,7 @@ dependencies:
   flutter_chatgpt_api: ^1.1.0
   chat_gpt_sdk: ^2.0.6
   velocity_x: ^3.6.0
+  avatar_glow: ^2.0.2
   
 
 dev_dependencies:
@@ -83,7 +84,7 @@ flutter:
     - assets/images/white_logo.png
     - assets/images/google.png
     - assets/images/vk.png
-    - assets/images/licota_logo.png
+    
     - assets/images/red_logo.png
     - assets/images/first_illustration.png
     - assets/images/illustartion.png
@@ -93,6 +94,16 @@ flutter:
     - assets/images/verify.jpg
     - assets/images/read.png
     - assets/images/MyMotoIcon.png
+    - assets/images/oil.png
+    - assets/images/brakefluid.png
+    - assets/images/brakes.png
+    - assets/images/antifreeze.png
+    - assets/images/fork.png
+    - assets/images/battery.png
+    - assets/images/chain.png
+    - assets/images/oilfilter.png
+    - assets/images/bgcard.jpg
+    - assets/images/bgcardblack.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

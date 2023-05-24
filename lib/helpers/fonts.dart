@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 
 Text titleText(
-    {required String text, required bool bold, required double size}) {
+    {required String text, required bool bold, required double size,required context}) {
   return Text(
     text,
     style: TextStyle(
         fontFamily: 'Montserrat',
-        color: Colors.black,
+        color: Theme.of(context).colorScheme.primary,
         fontSize: size,
         fontWeight: bold ? FontWeight.bold : FontWeight.normal),
   );

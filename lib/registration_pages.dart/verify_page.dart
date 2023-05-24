@@ -126,7 +126,7 @@ class _VerifyPageState extends State<VerifyPage> {
               scale: 6,
             ),
             const SizedBox(height: 10),
-            titleText(text: 'Verify Your Email', bold: true, size: 32),
+            titleText(text: 'Verify Your Email', bold: true, size: 32,  context: context),
             const SizedBox(height: 13),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),

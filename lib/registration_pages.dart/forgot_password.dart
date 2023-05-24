@@ -45,7 +45,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                   scale: 6,
                 ),
                 const SizedBox(height: 10),
-                titleText(text: 'Password reset', bold: true, size: 32),
+                titleText(text: 'Password reset', bold: true, size: 32, context: context),
                 const SizedBox(height: 13),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),

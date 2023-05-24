@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../packages/settings_page.dart/icon_style.dart';
 import '../packages/settings_page.dart/settings_group.dart';
 import '../packages/settings_page.dart/settings_item.dart';
-import '../packages/settings_page.dart/small_user_card.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -28,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
-    profileImageUrl = currentUser!.photoURL ?? "0";
+    profileImageUrl = currentUser!.photoURL ?? "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
     userEmail = currentUser!.email ?? 'null';
   }
 
@@ -44,10 +44,31 @@ class _SettingsPageState extends State<SettingsPage> {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             // user card
-            SmallUserCard(
-                onTap: () {},
-                userName: '$userEmail',
-                userProfilePic: NetworkImage('$profileImageUrl')),
+            AvatarGlow(
+              endRadius: 90.0,
+              duration: Duration(milliseconds: 2000),
+              repeat: true,
+              showTwoGlows: true,
+              repeatPauseDuration: const Duration(milliseconds: 10),
+              glowColor: Theme.of(context).colorScheme.tertiary,
+              child: Material(
+                elevation: 0,
+                shape: const CircleBorder(),
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 35.0,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage('$profileImageUrl'),
+                      radius: 50.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Center(child: titleText(text: '$userEmail', bold: true, size: 18, context: context)),
             const SizedBox(height: 101),
             SettingsGroup(
               items: [
