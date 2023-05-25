@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/custom_dialog.dart';
+import 'package:motoappv2/pages/chat_gpt/providers/chats_provider.dart';
+
+import 'package:motoappv2/pages/chat_gpt/providers/models_provider.dart';
 import 'package:motoappv2/pages/home_page.dart';
 import 'package:motoappv2/pages/menu_page.dart';
 import 'package:motoappv2/providers/theme_provider.dart';
@@ -19,8 +22,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    ChangeNotifierProvider<ThemeProvider>(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+ChangeNotifierProvider(create: (_) => ThemeProvider(),),
+ChangeNotifierProvider(create: (_) => ModelsProvider(),),
+ChangeNotifierProvider(create: (_) => ChatProvider()),
+      ],
+      
       child: const MyApp(),
     ),
   );

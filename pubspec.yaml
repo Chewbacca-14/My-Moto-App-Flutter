@@ -50,7 +50,11 @@ dependencies:
   chat_gpt_sdk: ^2.0.6
   velocity_x: ^3.6.0
   avatar_glow: ^2.0.2
+  animated_text_kit: ^4.2.2
   
+  
+  http: ^0.13.5
+  flutter_spinkit: ^5.2.0
 
 dev_dependencies:
   flutter_test:
@@ -81,29 +85,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/white_logo.png
-    - assets/images/google.png
-    - assets/images/vk.png
-    
-    - assets/images/red_logo.png
-    - assets/images/first_illustration.png
-    - assets/images/illustartion.png
-    - assets/images/illustration3.png
-    - assets/images/illustration4.png
-    - assets/images/moto.png
-    - assets/images/verify.jpg
-    - assets/images/read.png
-    - assets/images/MyMotoIcon.png
-    - assets/images/oil.png
-    - assets/images/brakefluid.png
-    - assets/images/brakes.png
-    - assets/images/antifreeze.png
-    - assets/images/fork.png
-    - assets/images/battery.png
-    - assets/images/chain.png
-    - assets/images/oilfilter.png
-    - assets/images/bgcard.jpg
-    - assets/images/bgcardblack.png
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

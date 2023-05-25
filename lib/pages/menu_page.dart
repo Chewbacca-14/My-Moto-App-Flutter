@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:motoappv2/pages/chat_gpt_page.dart';
 import 'package:motoappv2/pages/home_page.dart';
 import 'package:motoappv2/pages/notes_page.dart';
 import 'package:motoappv2/pages/settings_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import 'chat_screen.dart';
 
 void main() {
   runApp(const MenuPage());
