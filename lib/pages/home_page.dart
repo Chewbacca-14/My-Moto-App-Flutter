@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
 
+
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -42,6 +44,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     var stream = FirebaseFirestore.instance
         .collection('data')
         .where('uid', isEqualTo: uid)
@@ -57,8 +60,11 @@ class _HomePageState extends State<HomePage> {
                 itemCount: names.length,
                 itemBuilder: (context, index) {
                   return MainCard(
-                    url: names[index] == 'Oil Filter' ? 'assets/images/oilfilter.png' 
-                    : names[index] == 'Brake Fluid' ? 'assets/images/brakefluid.png' : 'assets/images/${names[index].toLowerCase()}.png',
+                    url: names[index] == 'Oil Filter'
+                        ? 'assets/images/oilfilter.png'
+                        : names[index] == 'Brake Fluid'
+                            ? 'assets/images/brakefluid.png'
+                            : 'assets/images/${names[index].toLowerCase()}.png',
                     mileage: doc.firstWhereOrNull(
                             ((d) => d['name'] == names[index]))?['mileage'] ??
                         '00 000',

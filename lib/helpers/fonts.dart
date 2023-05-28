@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 
 
 Text titleText(
-    {required String text, required bool bold, required double size,required context}) {
+    {required String text, required bool bold, required double size,required context, bool center = false}) {
   return Text(
+    
     text,
+     textAlign: center ? TextAlign.center : null,
     style: TextStyle(
+      
         fontFamily: 'Montserrat',
         color: Theme.of(context).colorScheme.primary,
         fontSize: size,
@@ -33,6 +36,7 @@ Text mainText(
 TextStyle mainTextStyle( double size, context) {
   return TextStyle(
       fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
       color: Theme.of(context).colorScheme.primary,
       fontSize: size,
       );

@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'My moto',
       theme:
           Provider.of<ThemeProvider>(context).isLight ? darkTheme : lightTheme,

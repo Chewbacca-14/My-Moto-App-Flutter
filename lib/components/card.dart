@@ -17,7 +17,7 @@ class MainCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     ThemeData themeData = Theme.of(context);
+    ThemeData themeData = Theme.of(context);
     bool isLightTheme = themeData.brightness == Brightness.light;
     return GestureDetector(
       onTap: () async {
@@ -27,89 +27,102 @@ class MainCard extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: const EdgeInsets.all(40).copyWith(top: 10, bottom: 10),
+        padding: const EdgeInsets.all(15).copyWith(top: 10, bottom: 10),
         child: Container(
             height: 120,
             decoration: BoxDecoration(
-              color: isLightTheme ? null : Theme.of(context).colorScheme.primaryContainer,
-             image: isLightTheme
+              color: isLightTheme
+                  ? null
+                  : Theme.of(context).colorScheme.primaryContainer,
+              image: isLightTheme
                   ? DecorationImage(
                       image: AssetImage('assets/images/bgcard.jpg'),
-                      fit: BoxFit.fill) :
-                  null,
+                      fit: BoxFit.fill)
+                  : null,
               borderRadius: BorderRadius.circular(15),
-              boxShadow: const [
-                BoxShadow(
-                    color: Color.fromARGB(255, 202, 202, 202),
-                    blurRadius: 5,
-                    spreadRadius: 0.3),
+              boxShadow: [
+                isLightTheme
+                    ? BoxShadow(
+                        color: Color.fromARGB(255, 58, 58, 58)
+                            .withOpacity(0.5), // цвет тени
+                        spreadRadius: 0.5, // распространение тени
+                        blurRadius: 2, // радиус размытия тени
+                      )
+                    : BoxShadow(
+                        color: Color.fromARGB(255, 238, 238, 238)
+                            .withOpacity(0.5), // цвет тени
+                        spreadRadius: 0.5, // распространение тени
+                        blurRadius: 2, // радиус размытия тени
+                      )
               ],
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
+              
                 children: [
-                  const SizedBox(height: 10),
-                  Row(
+                  ColorFiltered(
+                    colorFilter: const ColorFilter.matrix([
+                      0.7, 0, 0, 0,
+                      1, // уменьшает насыщенность красного цвета
+                      0, 0.6, 0, 0,
+                      1, // уменьшает насыщенность зеленого цвета
+                      0, 0, 0.6, 0,
+                      1, // уменьшает насыщенность синего цвета
+                      0, 0, 0, 1,
+                      1, // оставляет альфа-канал без изменений
+                    ]),
+                    child:
+                        Image.asset(url ?? 'assets/images/Oil.png', scale: 9),
+                  ),
+                  const SizedBox(width: 50),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: titleText(
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          titleText(
                               text: name,
                               bold: true,
                               size: 18,
                               context: context),
-                        ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: ColorFiltered(
-                          colorFilter: const ColorFilter.matrix([
-                            0.7, 0, 0, 0,
-                            1, // уменьшает насыщенность красного цвета
-                            0, 0.6, 0, 0,
-                            1, // уменьшает насыщенность зеленого цвета
-                            0, 0, 0.6, 0,
-                            1, // уменьшает насыщенность синего цвета
-                            0, 0, 0, 1,
-                            1, // оставляет альфа-канал без изменений
-                          ]),
-                          child: Image.asset(url ?? 'assets/images/Oil.png',
-                              scale: 14),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      const SizedBox(width: 20),
-                      const Icon(Icons.watch_later_rounded,
-                          size: 20, color: Colors.green),
-                      const SizedBox(width: 10),
-                      mainText(
-                        text: date,
-                        bold: false,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                       const SizedBox(width: 20),
-                      const Icon(Icons.where_to_vote_rounded,
-                          size: 20, color: Colors.red),
-                      const SizedBox(width: 10),
-                      mainText(
-                        text: '$mileage km',
-                        bold: false,
-                        size: 16,
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                      const SizedBox(height: 20),
+                     
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                               const Icon(Icons.watch_later_rounded,
+                              size: 20, color: Colors.green),
+                              const SizedBox(height: 5),
+                               const Icon(Icons.where_to_vote_rounded,
+                              size: 22, color: Colors.red),
+                            ],
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                mainText(
+                            text: date,
+                            bold: false,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                              const SizedBox(height: 5),
+                               mainText(
+                            text: '$mileage km',
+                            bold: false,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                            ],
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ],

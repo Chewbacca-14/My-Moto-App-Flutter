@@ -1,18 +1,15 @@
 import 'dart:developer';
 
-
 import 'package:flutter/material.dart';
+import 'package:motoappv2/helpers/fonts.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/chats_provider.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/models_provider.dart';
-import 'package:motoappv2/pages/chat_gpt/services/assets_manager.dart';
+
 import 'package:motoappv2/pages/chat_gpt/widgets/chat_widget.dart';
 import 'package:motoappv2/pages/chat_gpt/widgets/text_widget.dart';
-
-import 'chat_gpt/constants/constants.dart';
-
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -49,18 +46,51 @@ class _ChatScreenState extends State<ChatScreen> {
     final modelsProvider = Provider.of<ModelsProvider>(context);
     final chatProvider = Provider.of<ChatProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        elevation: 2,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(AssetsManager.openaiLogo),
-        ),
-        title: const Text("ChatGPT"),
-        
-      ),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      icon: const Icon(
+                        Icons.info_outline,
+                        color: Colors.redAccent,
+                      ),
+                      color: Colors.black,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Who am I ?'),
+                            content: Text(
+                              'I am a ChatGPT based bot. I can answer any of your questions.',
+                              style: mainTextStyle(18, context),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .background,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Ok',
+                                      style: mainTextStyle(18, context)))
+                            ],
+                          ),
+                        );
+                      })
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
             Flexible(
               child: ListView.builder(
                   controller: _listScrollController,
@@ -77,47 +107,51 @@ class _ChatScreenState extends State<ChatScreen> {
                   }),
             ),
             if (_isTyping) ...[
-              const SpinKitThreeBounce(
-                color: Colors.white,
+              SpinKitThreeBounce(
+                color: Theme.of(context).colorScheme.primary,
                 size: 18,
               ),
             ],
             const SizedBox(
               height: 15,
             ),
-            Material(
-              color: cardColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        focusNode: focusNode,
-                        style: const TextStyle(color: Colors.white),
-                        controller: textEditingController,
-                        onSubmitted: (value) async {
-                          await sendMessageFCT(
-                              modelsProvider: modelsProvider,
-                              chatProvider: chatProvider);
-                        },
-                        decoration: const InputDecoration.collapsed(
-                            hintText: "How can I help you",
-                            hintStyle: TextStyle(color: Colors.grey)),
-                      ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      focusNode: focusNode,
+                      style: mainTextStyle(16, context),
+                      controller: textEditingController,
+                      onSubmitted: (value) async {
+                        await sendMessageFCT(
+                            modelsProvider: modelsProvider,
+                            chatProvider: chatProvider);
+                      },
+                      decoration: InputDecoration(
+                          fillColor:
+                              Theme.of(context).colorScheme.primaryContainer,
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          hintText: "How can I help you",
+                          hintStyle: mainTextStyle(16, context)),
                     ),
-                    IconButton(
-                        onPressed: () async {
-                          await sendMessageFCT(
-                              modelsProvider: modelsProvider,
-                              chatProvider: chatProvider);
-                        },
-                        icon: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        ))
-                  ],
-                ),
+                  ),
+                  IconButton(
+                      onPressed: () async {
+                        await sendMessageFCT(
+                            modelsProvider: modelsProvider,
+                            chatProvider: chatProvider);
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: Theme.of(context).colorScheme.primary,
+                      ))
+                ],
               ),
             ),
           ],

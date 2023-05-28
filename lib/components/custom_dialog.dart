@@ -1,5 +1,4 @@
-// Импортируем материалы
-// ignore_for_file: use_build_context_synchronously
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,6 +53,7 @@ class _CustomDialogState extends State<CustomDialog> {
               ),
               const SizedBox(height: 30),
               CustomTextField(
+                
                   errorText: isNull ? 'Can`t be empty' : null,
                   format: [ThousandsSeparatorInputFormatter()],
                   maxLength: 9,

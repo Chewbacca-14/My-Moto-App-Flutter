@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:motoappv2/helpers/fonts.dart';
 
 import '../constants/constants.dart';
 import '../services/assets_manager.dart';
@@ -21,7 +22,7 @@ class ChatWidget extends StatelessWidget {
     return Column(
       children: [
         Material(
-          color: chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
+          color: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -44,10 +45,7 @@ class ChatWidget extends StatelessWidget {
                         )
                       : shouldAnimate
                           ? DefaultTextStyle(
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16),
+                              style: mainTextStyle(18, context),
                               child: AnimatedTextKit(
                                   isRepeatingAnimation: false,
                                   repeatForever: false,
@@ -61,10 +59,7 @@ class ChatWidget extends StatelessWidget {
                             )
                           : Text(
                               msg.trim(),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16),
+                              style: mainTextStyle(18, context)
                             ),
                 ),
                 chatIndex == 0

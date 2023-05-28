@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:motoappv2/helpers/fonts.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget(
@@ -18,11 +19,7 @@ class TextWidget extends StatelessWidget {
     return Text(
       label,
       // textAlign: TextAlign.justify,
-      style: TextStyle(
-        color: color ?? Colors.white,
-        fontSize: fontSize,
-        fontWeight: fontWeight ?? FontWeight.w500,
-      ),
+      style: mainTextStyle(18, context)
     );
   }
 }
