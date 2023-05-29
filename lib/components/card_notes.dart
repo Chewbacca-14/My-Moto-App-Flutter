@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-
 import '../helpers/fonts.dart';
+import 'box_decoration.dart';
 
-// ignore: must_be_immutable
 class NotesCard extends StatelessWidget {
+  
   final String? note;
 
-  NotesCard({Key? key, required this.note}) : super(key: key);
+  const NotesCard({Key? key, required this.note}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +20,33 @@ class NotesCard extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: Center(child: const Text('Really want to delete ?')),
+              title: const Center(
+                child: Text('Really want to delete ?'),
+              ),
               actions: [
                 Center(
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.red
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      final querySnapshot = await FirebaseFirestore.instance
+                          .collection('notes')
+                          .where('note', isEqualTo: note)
+                          .limit(1)
+                          .get();
+                      final documentSnapshot = querySnapshot.docs.first;
+                      await documentSnapshot.reference.delete();
+                    },
+                    child: Text(
+                      'Delete',
+                      style: mainTextStyle(
+                        18,
+                        context,
                       ),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        final querySnapshot = await FirebaseFirestore.instance
-                            .collection('notes')
-                            .where('note', isEqualTo: note)
-                            .limit(1)
-                            .get();
-                        final documentSnapshot = querySnapshot.docs.first;
-                        await documentSnapshot.reference.delete();
-                        
-                      },
-                      child: Text('Delete', style: mainTextStyle(18, context))),
-                )
+                    ),
+                  ),
+                ),
               ],
             ),
           );
@@ -53,25 +58,21 @@ class NotesCard extends StatelessWidget {
                 ? null
                 : Theme.of(context).colorScheme.primaryContainer,
             image: isLightTheme
-                ? DecorationImage(
+                ? const DecorationImage(
                     image: AssetImage('assets/images/bgcard.jpg'),
                     fit: BoxFit.fill)
                 : null,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               isLightTheme
-                  ? BoxShadow(
-                      color: Color.fromARGB(255, 58, 58, 58)
-                          .withOpacity(0.5), // цвет тени
-                      spreadRadius: 0.5, // распространение тени
-                      blurRadius: 2, // радиус размытия тени
-                    )
-                  : BoxShadow(
-                      color: Color.fromARGB(255, 238, 238, 238)
-                          .withOpacity(0.5), // цвет тени
-                      spreadRadius: 0.5, // распространение тени
-                      blurRadius: 2, // радиус размытия тени
-                    )
+                  ? standartShadow(
+                        color: const Color.fromARGB(255, 58, 58, 58)
+                            .withOpacity(0.5),
+                      )
+                    : standartShadow(
+                        color:
+                           const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
+                      ),
             ],
           ),
           child: Column(
@@ -80,7 +81,10 @@ class NotesCard extends StatelessWidget {
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(15),
-                child: Text('$note', style: mainTextStyle(19, context)),
+                child: Text(
+                  '$note',
+                  style: mainTextStyle(19, context),
+                ),
               ),
             ],
           ),

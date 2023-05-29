@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card_notes.dart';
+import 'package:motoappv2/components/custom_dialog.dart';
 
-import '../components/custom_dialog_notes.dart';
+
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -37,13 +38,13 @@ class _NotesPageState extends State<NotesPage> {
             {
               await showDialog(
                 context: context,
-                builder: (context) => const NotesDialog(),
+                builder: (context) => const CustomDialog(isNotes: true),
               );
             }
             
           },
-          child: Icon(Icons.add),
           backgroundColor: Colors.lightBlueAccent,
+          child: const Icon(Icons.add),
           )
 );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:motoappv2/components/box_decoration.dart';
 import 'package:motoappv2/helpers/fonts.dart';
 import 'custom_dialog.dart';
 
@@ -23,7 +24,7 @@ class MainCard extends StatelessWidget {
       onTap: () async {
         await showDialog(
           context: context,
-          builder: (context) => CustomDialog(text: name),
+          builder: (context) => CustomDialog(text: name, isNotes: false),
         );
       },
       child: Padding(
@@ -35,31 +36,26 @@ class MainCard extends StatelessWidget {
                   ? null
                   : Theme.of(context).colorScheme.primaryContainer,
               image: isLightTheme
-                  ? DecorationImage(
+                  ? const DecorationImage(
                       image: AssetImage('assets/images/bgcard.jpg'),
                       fit: BoxFit.fill)
                   : null,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 isLightTheme
-                    ? BoxShadow(
-                        color: Color.fromARGB(255, 58, 58, 58)
-                            .withOpacity(0.5), // цвет тени
-                        spreadRadius: 0.5, // распространение тени
-                        blurRadius: 2, // радиус размытия тени
+                    ? standartShadow(
+                        color: const Color.fromARGB(255, 58, 58, 58)
+                            .withOpacity(0.5),
                       )
-                    : BoxShadow(
-                        color: Color.fromARGB(255, 238, 238, 238)
-                            .withOpacity(0.5), // цвет тени
-                        spreadRadius: 0.5, // распространение тени
-                        blurRadius: 2, // радиус размытия тени
-                      )
+                    : standartShadow(
+                        color:
+                           const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
+                      ),
               ],
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Row(
-              
                 children: [
                   ColorFiltered(
                     colorFilter: const ColorFilter.matrix([
@@ -90,35 +86,34 @@ class MainCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 20),
-                     
                       Row(
                         children: [
-                          Column(
+                        const  Column(
                             children: [
-                               const Icon(Icons.watch_later_rounded,
-                              size: 20, color: Colors.green),
-                              const SizedBox(height: 5),
-                               const Icon(Icons.where_to_vote_rounded,
-                              size: 22, color: Colors.red),
+                             Icon(Icons.watch_later_rounded,
+                                  size: 20, color: Colors.green),
+                               SizedBox(height: 5),
+                               Icon(Icons.where_to_vote_rounded,
+                                  size: 22, color: Colors.red),
                             ],
                           ),
                           const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                                mainText(
-                            text: date,
-                            bold: false,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                              mainText(
+                                text: date,
+                                bold: false,
+                                size: 16,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                               const SizedBox(height: 5),
-                               mainText(
-                            text: '$mileage km',
-                            bold: false,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                              mainText(
+                                text: '$mileage km',
+                                bold: false,
+                                size: 16,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
                             ],
                           ),
                         ],

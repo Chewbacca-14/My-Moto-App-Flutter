@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +12,9 @@ import '../utils/formatter.dart';
 // Создаем виджет состояния для хранения введенного текста
 class CustomDialog extends StatefulWidget {
   final String? text;
+  final bool? isNotes;
 
-  const CustomDialog({super.key, this.text});
+  const CustomDialog({super.key, this.text, this.isNotes});
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
@@ -29,72 +28,91 @@ class _CustomDialogState extends State<CustomDialog> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return 
-      
-      AlertDialog(
-        backgroundColor: Colors.transparent,
-        content: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-           
-          ),
-          height: 300,
-          width: 300,
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              Text(
-                '${widget.text}',
-                style: const TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 30),
-              CustomTextField(
-                
-                  errorText: isNull ? 'Can`t be empty' : null,
-                  format: [ThousandsSeparatorInputFormatter()],
-                  maxLength: 9,
-                  border: const UnderlineInputBorder(),
-                  keyboardType: TextInputType.number,
-                  hintText: 'Mileage',
-                  controller: _controller),
-              const SizedBox(height: 15),
-              Center(
-                child: SizedBox(
-                  height: 100,
-                  child: ScrollDatePicker(
-                    selectedDate: _selectedDate,
-                    onDateTimeChanged: (DateTime value) {
-                      setState(
-                        () {
-                          _selectedDate = value;
+    return AlertDialog(
+      backgroundColor: Colors.transparent,
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.background,
+        ),
+        height: widget.isNotes! ? 230 : 300,
+        width: 300,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Text(
+              widget.isNotes! ? 'Add Notes' : '${widget.text}',
+              style: const TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 30),
+            CustomTextField(
+                errorText: isNull ? 'Can`t be empty' : null,
+                format: widget.isNotes! ? null : [ThousandsSeparatorInputFormatter()],
+                maxLength: widget.isNotes! ? 150 : 9,
+                border: const UnderlineInputBorder(),
+                keyboardType: widget.isNotes! ? null : TextInputType.number,
+                hintText: widget.isNotes! ? 'Notes' : 'Mileage',
+                controller: _controller),
+            const SizedBox(height: 15),
+            widget.isNotes!
+                ? const SizedBox()
+                : Center(
+                    child: SizedBox(
+                      height: 100,
+                      child: ScrollDatePicker(
+                        selectedDate: _selectedDate,
+                        onDateTimeChanged: (DateTime value) {
+                          setState(
+                            () {
+                              _selectedDate = value;
+                            },
+                          );
                         },
-                      );
-                    },
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              CustomButton(
-                  onTap: () {
+            const SizedBox(height: 10),
+            CustomButton(
+                onTap: () {
+                  if (widget.isNotes == false) {
                     if (_controller.text.isEmpty) {
                       setState(() {
                         isNull = true;
                       });
                     } else {
+                      Navigator.pop(context);
                       updateDataIfUidAndNameExist('${widget.text}', uid,
                           _controller.text, _selectedDate.toString());
                     }
-                  },
-                  text: 'Save')
-            ],
-          ),
+                  } else {
+                    if (_controller.text.isEmpty) {
+                      setState(() {
+                        isNull = true;
+                      });
+                    } else {
+                      Navigator.pop(context);
+                      writeDataToFirebase(_controller.text);
+                    }
+                  }
+                },
+                text: 'Save')
+          ],
         ),
-      );
-    
+      ),
+    );
+  }
+
+  Future<void> writeDataToFirebase(note) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('notes')
+          .add({'note': note, 'uid': uid});
+    } catch (e) {
+      debugPrint('error');
+    }
   }
 
   Future<void> updateDataIfUidAndNameExist(
@@ -111,7 +129,6 @@ class _CustomDialogState extends State<CustomDialog> {
           '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
       // Если документ существует, обновляем данные
       try {
-        
         final documentSnapshot = querySnapshot.docs.first;
         await documentSnapshot.reference.update({
           'name': name,
