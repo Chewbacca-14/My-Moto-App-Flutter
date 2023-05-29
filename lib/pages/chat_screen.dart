@@ -118,27 +118,34 @@ class _ChatScreenState extends State<ChatScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: TextField(
-                      focusNode: focusNode,
-                      style: mainTextStyle(16, context),
-                      controller: textEditingController,
-                      onSubmitted: (value) async {
-                        await sendMessageFCT(
-                            modelsProvider: modelsProvider,
-                            chatProvider: chatProvider);
-                      },
-                      decoration: InputDecoration(
-                          fillColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintText: "How can I help you",
-                          hintStyle: mainTextStyle(16, context)),
+                    child: Container(
+                      height: 42,
+                      child: Center(
+                        child: TextField(
+                          focusNode: focusNode,
+                          style: mainTextStyle(16, context),
+                          controller: textEditingController,
+                          onSubmitted: (value) async {
+                            await sendMessageFCT(
+                                modelsProvider: modelsProvider,
+                                chatProvider: chatProvider);
+                          },
+                          decoration: InputDecoration(
+                              fillColor: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              hintText: "How can I help you",
+                              hintStyle: mainTextStyle(16, context)),
+                        ),
+                      ),
                     ),
                   ),
                   IconButton(

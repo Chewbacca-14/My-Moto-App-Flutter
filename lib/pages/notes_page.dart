@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card_notes.dart';
 
@@ -12,17 +13,12 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  Future<void> writeDataToFirebase(note) async {
-    try {
-      await FirebaseFirestore.instance.collection('notes').add({'note': note});
-    } catch (e) {
-      print('Error writing data: $e');
-    }
-  }
+ String uid = FirebaseAuth.instance.currentUser!.uid.toString();
+ 
 
   @override
   Widget build(BuildContext context) {
-    var stream = FirebaseFirestore.instance.collection('notes').snapshots();
+    var stream = FirebaseFirestore.instance.collection('notes').where('uid', isEqualTo: uid).snapshots();
     return Scaffold(
   body: StreamBuilder(
     stream: stream,

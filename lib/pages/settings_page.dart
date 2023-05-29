@@ -113,6 +113,8 @@ class _SettingsPageState extends State<SettingsPage> {
               items: [
                 SettingsItem(
                   onTap: () {
+                     Provider.of<ThemeProvider>(context, listen: false)
+                            .isLight = false;
                     AuthProvider().signOut(context);
                   },
                   icons: Icons.exit_to_app_rounded,

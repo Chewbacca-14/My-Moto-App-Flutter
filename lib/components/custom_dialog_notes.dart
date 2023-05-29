@@ -19,7 +19,7 @@ class NotesDialog extends StatefulWidget {
 class _NotesDialogState extends State<NotesDialog> {
   Future<void> writeDataToFirebase(note) async {
     try {
-      await FirebaseFirestore.instance.collection('notes').add({'note': note});
+      await FirebaseFirestore.instance.collection('notes').add({'note': note, 'uid': uid});
     } catch (e) {
       print('Error writing data: $e');
     }

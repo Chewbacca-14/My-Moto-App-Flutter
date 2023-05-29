@@ -9,5 +9,5 @@ ThemeData lightTheme = ThemeData(
       primary: Colors.black,
       tertiary: Colors.blue,
       onPrimary: MyColors.mainGreySecond,
-      primaryContainer: Color.fromARGB(255, 188, 188, 188)),
+      primaryContainer: Color.fromARGB(255, 229, 229, 229)),
 );
