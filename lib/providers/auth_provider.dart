@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
 
-
-
-
 class AuthProvider {
 //create new user
   Future<void> createUser(String email, String password, context) async {
@@ -40,8 +37,6 @@ class AuthProvider {
   //login
   Future<void> login(context, String email, String password) async {
     try {
-      
-
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -53,7 +48,6 @@ class AuthProvider {
       }
       debugPrint('Login');
     } catch (e) {
-     
       String errorMessage = '';
       if (e is FirebaseAuthException) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
@@ -62,7 +56,7 @@ class AuthProvider {
           errorMessage = 'Login error';
         }
       }
-      
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: MyColors.textRed,
         content: Text(
@@ -77,7 +71,7 @@ class AuthProvider {
   Future<bool> forgotPassword(String email, context) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: MyColors.emergencyGreen,
         content: Text(
@@ -87,7 +81,6 @@ class AuthProvider {
       ));
       return true;
     } catch (e) {
-     
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: MyColors.textRed,
         content: Text(
@@ -102,7 +95,7 @@ class AuthProvider {
   //google auth
   Future<void> signInWithGoogle(context) async {
     final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-    
+
     final GoogleSignInAuthentication gAuth = await gUser!.authentication;
 
     final credential = GoogleAuthProvider.credential(

@@ -45,7 +45,11 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                   scale: 6,
                 ),
                 const SizedBox(height: 10),
-                titleText(text: 'Password reset', bold: true, size: 32, context: context),
+                titleText(
+                    text: 'Password reset',
+                    bold: true,
+                    size: 32,
+                    context: context),
                 const SizedBox(height: 13),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
@@ -70,21 +74,21 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                       bool result = await AuthProvider()
                           .forgotPassword(_emailController.text, context);
                       if (result == true) {
-                      timer =
-                          Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-                        if (secondsRemaining > 0) {
-                          setState(() {
-                            secondsRemaining--;
-                            canResend = false;
-                          });
-                        } else {
-                          timer.cancel();
-                          setState(() {
-                            secondsRemaining = 30;
-                            canResend = true;
-                          });
-                        }
-                      });
+                        timer = Timer.periodic(const Duration(seconds: 1),
+                            (Timer timer) {
+                          if (secondsRemaining > 0) {
+                            setState(() {
+                              secondsRemaining--;
+                              canResend = false;
+                            });
+                          } else {
+                            timer.cancel();
+                            setState(() {
+                              secondsRemaining = 30;
+                              canResend = true;
+                            });
+                          }
+                        });
                       }
                     }
                   },

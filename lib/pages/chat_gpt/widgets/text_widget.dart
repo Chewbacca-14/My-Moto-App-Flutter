@@ -16,10 +16,6 @@ class TextWidget extends StatelessWidget {
   final FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
-    return Text(
-      label,
-     
-      style: mainTextStyle(18, context)
-    );
+    return Text(label, style: mainTextStyle(18, context));
   }
 }

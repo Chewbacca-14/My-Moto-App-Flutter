@@ -28,7 +28,8 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
-    profileImageUrl = currentUser!.photoURL ?? "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
+    profileImageUrl = currentUser!.photoURL ??
+        "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
     userEmail = currentUser!.email ?? 'null';
   }
 
@@ -68,7 +69,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-            Center(child: titleText(text: '$userEmail', bold: true, size: 18, context: context)),
+            Center(
+                child: titleText(
+                    text: '$userEmail',
+                    bold: true,
+                    size: 18,
+                    context: context)),
             const SizedBox(height: 101),
             SettingsGroup(
               items: [
@@ -113,8 +119,8 @@ class _SettingsPageState extends State<SettingsPage> {
               items: [
                 SettingsItem(
                   onTap: () {
-                     Provider.of<ThemeProvider>(context, listen: false)
-                            .isLight = false;
+                    Provider.of<ThemeProvider>(context, listen: false).isLight =
+                        false;
                     AuthProvider().signOut(context);
                   },
                   icons: Icons.exit_to_app_rounded,

@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 import 'colors_palette.dart';
 import 'fonts.dart';
 
-
 class CustomButton extends StatelessWidget {
   final String text;
 
   final dynamic onTap;
-  
 
   final Color? color;
   const CustomButton(
-      {super.key,
-      required this.onTap,
-      required this.text,
-      
-      this.color
-      });
+      {super.key, required this.onTap, required this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +17,7 @@ class CustomButton extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Container(
         decoration: BoxDecoration(
-            color: color ??  MyColors.mainOrange,
+            color: color ?? MyColors.mainOrange,
             borderRadius: BorderRadius.circular(10)),
         child: Material(
           borderRadius: BorderRadius.circular(10),
@@ -45,7 +38,6 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
 
 class CustomButton2 extends StatelessWidget {
   final String text;

@@ -4,7 +4,6 @@ import '../helpers/fonts.dart';
 import 'box_decoration.dart';
 
 class NotesCard extends StatelessWidget {
-  
   final String? note;
 
   const NotesCard({Key? key, required this.note}) : super(key: key);
@@ -66,13 +65,13 @@ class NotesCard extends StatelessWidget {
             boxShadow: [
               isLightTheme
                   ? standartShadow(
-                        color: const Color.fromARGB(255, 58, 58, 58)
-                            .withOpacity(0.5),
-                      )
-                    : standartShadow(
-                        color:
-                           const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
-                      ),
+                      color: const Color.fromARGB(255, 58, 58, 58)
+                          .withOpacity(0.5),
+                    )
+                  : standartShadow(
+                      color: const Color.fromARGB(255, 238, 238, 238)
+                          .withOpacity(0.5),
+                    ),
             ],
           ),
           child: Column(

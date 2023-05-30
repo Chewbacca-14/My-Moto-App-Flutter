@@ -5,8 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -33,18 +31,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    shuffleItems(); 
+    shuffleItems();
   }
 
   void shuffleItems() {
     setState(() {
-      names.shuffle(Random()); 
+      names.shuffle(Random());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    
     var stream = FirebaseFirestore.instance
         .collection('data')
         .where('uid', isEqualTo: uid)

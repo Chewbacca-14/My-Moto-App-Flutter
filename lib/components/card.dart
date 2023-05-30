@@ -48,8 +48,8 @@ class MainCard extends StatelessWidget {
                             .withOpacity(0.5),
                       )
                     : standartShadow(
-                        color:
-                           const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
+                        color: const Color.fromARGB(255, 238, 238, 238)
+                            .withOpacity(0.5),
                       ),
               ],
             ),
@@ -88,12 +88,12 @@ class MainCard extends StatelessWidget {
                       const SizedBox(height: 20),
                       Row(
                         children: [
-                        const  Column(
+                          const Column(
                             children: [
-                             Icon(Icons.watch_later_rounded,
+                              Icon(Icons.watch_later_rounded,
                                   size: 20, color: Colors.green),
-                               SizedBox(height: 5),
-                               Icon(Icons.where_to_vote_rounded,
+                              SizedBox(height: 5),
+                              Icon(Icons.where_to_vote_rounded,
                                   size: 22, color: Colors.red),
                             ],
                           ),

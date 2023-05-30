@@ -10,7 +10,7 @@ class CustomTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.autofocus,
       this.focusNode,
-       this.icon,
+      this.icon,
       this.suffixIcon,
       required this.controller,
       this.keyboardType,
@@ -25,7 +25,6 @@ class CustomTextField extends StatefulWidget {
   final IconButton? suffixIcon;
   final TextEditingController controller;
 
-  
   final dynamic validator;
   final TextInputType? keyboardType;
   final String? errorText;

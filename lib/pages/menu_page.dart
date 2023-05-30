@@ -12,8 +12,6 @@ void main() {
 }
 
 class MenuPage extends StatefulWidget {
-  
-
   const MenuPage({super.key});
 
   @override
@@ -23,41 +21,34 @@ class MenuPage extends StatefulWidget {
 class _MenuPageState extends State<MenuPage> {
   var _currentIndex = 0;
   List<Widget> pageList = [
-   const HomePage(),
-   const ChatScreen(),
-   const NotesPage(),
-   const SettingsPage(),
+    const HomePage(),
+    const ChatScreen(),
+    const NotesPage(),
+    const SettingsPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SalomonBottomBar(
+        bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
           items: [
-           
             SalomonBottomBarItem(
               icon: const Icon(Icons.home_outlined),
               title: const Text("Home"),
               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
-
-           
             SalomonBottomBarItem(
               icon: const Icon(Icons.chat_outlined),
               title: const Text("Chat Bot"),
-               selectedColor: Theme.of(context).colorScheme.tertiary,
+              selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
-
-           
             SalomonBottomBarItem(
               icon: const Icon(Icons.notes_rounded),
               title: const Text("Notes"),
               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
-
-            
             SalomonBottomBarItem(
               icon: const Icon(Icons.settings_rounded),
               title: const Text("Settings"),
@@ -65,10 +56,6 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ],
         ),
-     
-     body: pageList[_currentIndex]
-        
-      
-    );
+        body: pageList[_currentIndex]);
   }
 }

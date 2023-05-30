@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/db_utils/db_functions.dart';
@@ -6,7 +5,6 @@ import 'package:motoappv2/helpers/custom_button.dart';
 
 import 'package:motoappv2/helpers/text_field.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-
 
 import '../utils/formatter.dart';
 

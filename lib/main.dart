@@ -24,11 +24,14 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-ChangeNotifierProvider(create: (_) => ThemeProvider(),),
-ChangeNotifierProvider(create: (_) => ModelsProvider(),),
-ChangeNotifierProvider(create: (_) => ChatProvider()),
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ModelsProvider(),
+        ),
+        ChangeNotifierProvider(create: (_) => ChatProvider()),
       ],
-      
       child: const MyApp(),
     ),
   );

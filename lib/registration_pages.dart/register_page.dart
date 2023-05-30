@@ -53,7 +53,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      titleText(text: 'Register', bold: true, size: 32,  context: context),
+                      titleText(
+                          text: 'Register',
+                          bold: true,
+                          size: 32,
+                          context: context),
                     ],
                   ),
                 ),

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card_notes.dart';
 import 'package:motoappv2/components/custom_dialog.dart';
 
-
-
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
 
@@ -14,38 +12,39 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
- String uid = FirebaseAuth.instance.currentUser!.uid.toString();
- 
+  String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
   @override
   Widget build(BuildContext context) {
-    var stream = FirebaseFirestore.instance.collection('notes').where('uid', isEqualTo: uid).snapshots();
+    var stream = FirebaseFirestore.instance
+        .collection('notes')
+        .where('uid', isEqualTo: uid)
+        .snapshots();
     return Scaffold(
-  body: StreamBuilder(
-    stream: stream,
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return const SizedBox();
-      var doc = snapshot.data!.docs;
-      return ListView.builder(
-        itemCount: doc.length,
-        itemBuilder: (context, index) {
-          return NotesCard(note: doc[index]['note']);
-        },
-      );
-    },
-  ),
-  floatingActionButton: FloatingActionButton(onPressed: () async {
+        body: StreamBuilder(
+          stream: stream,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return const SizedBox();
+            var doc = snapshot.data!.docs;
+            return ListView.builder(
+              itemCount: doc.length,
+              itemBuilder: (context, index) {
+                return NotesCard(note: doc[index]['note']);
+              },
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
             {
               await showDialog(
                 context: context,
                 builder: (context) => const CustomDialog(isNotes: true),
               );
             }
-            
           },
           backgroundColor: Colors.lightBlueAccent,
           child: const Icon(Icons.add),
-          )
-);
+        ));
   }
 }

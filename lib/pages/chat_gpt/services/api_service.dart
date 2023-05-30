@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-
 import 'package:http/http.dart' as http;
-
 
 import '../constants/api_consts.dart';
 import '../models/chat_model.dart';
