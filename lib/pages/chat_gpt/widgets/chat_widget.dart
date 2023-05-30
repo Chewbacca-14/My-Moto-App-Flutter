@@ -3,7 +3,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/fonts.dart';
 
-import '../constants/constants.dart';
+
 import '../services/assets_manager.dart';
 import 'text_widget.dart';
 
@@ -64,13 +64,7 @@ class ChatWidget extends StatelessWidget {
                 ),
                 chatIndex == 0
                     ? const SizedBox.shrink()
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          
-                        ],
-                      ),
+                    : const Row(),
               ],
             ),
           ),

@@ -46,7 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
             // user card
             AvatarGlow(
               endRadius: 90.0,
-              duration: Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 2000),
               repeat: true,
               showTwoGlows: true,
               repeatPauseDuration: const Duration(milliseconds: 10),

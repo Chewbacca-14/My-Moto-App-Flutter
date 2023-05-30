@@ -25,8 +25,8 @@ class CustomTextField extends StatefulWidget {
   final IconButton? suffixIcon;
   final TextEditingController controller;
 
-  // ignore: prefer_typing_uninitialized_variables
-  final validator;
+  
+  final dynamic validator;
   final TextInputType? keyboardType;
   final String? errorText;
   final FocusNode? focusNode;

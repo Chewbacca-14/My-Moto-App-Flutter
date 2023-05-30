@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return EasySplashScreen(
       logoWidth: 0,
-      backgroundImage: AssetImage('assets/images/MyMotoIcon.png'),
+      backgroundImage: const AssetImage('assets/images/MyMotoIcon.png'),
       logo: Image.asset('assets/images/MyMotoIcon.png'),
       backgroundColor: Colors.transparent,
       durationInSeconds: 2,

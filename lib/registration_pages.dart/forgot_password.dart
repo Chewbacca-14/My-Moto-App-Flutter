@@ -53,7 +53,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                       text: 'Enter your account email',
                       bold: false,
                       size: 14,
-                      color: MyColors.mainGreyFirst),
+                      color: MyColors.mainGreySecond),
                 ),
                 const SizedBox(height: 35),
                 CustomTextField(
@@ -64,7 +64,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                 const SizedBox(height: 80),
                 CustomButton(
                   color:
-                      canResend ? MyColors.mainOrange : MyColors.mainGreyFirst,
+                      canResend ? MyColors.mainOrange : MyColors.mainGreySecond,
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
                       bool result = await AuthProvider()

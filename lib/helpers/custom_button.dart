@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'colors_palette.dart';
 import 'fonts.dart';
 
-//button for registartions screen
+
 class CustomButton extends StatelessWidget {
   final String text;
-  // ignore: prefer_typing_uninitialized_variables
-  final onTap;
+
+  final dynamic onTap;
   
-  // ignore: prefer_typing_uninitialized_variables
-  final color;
+
+  final Color? color;
   const CustomButton(
       {super.key,
       required this.onTap,
@@ -46,7 +46,7 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-//button for sign up with Google and VK
+
 class CustomButton2 extends StatelessWidget {
   final String text;
   // ignore: prefer_typing_uninitialized_variables

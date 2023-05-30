@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:motoappv2/db_utils/db_functions.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
 
 import 'package:motoappv2/helpers/text_field.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
-import '../helpers/colors_palette.dart';
+
 import '../utils/formatter.dart';
 
-// Создаем виджет состояния для хранения введенного текста
 class CustomDialog extends StatefulWidget {
   final String? text;
   final bool? isNotes;
@@ -20,7 +20,6 @@ class CustomDialog extends StatefulWidget {
   State<CustomDialog> createState() => _CustomDialogState();
 }
 
-// Создаем состояние виджета
 class _CustomDialogState extends State<CustomDialog> {
   late bool isNull = false;
   var uid = FirebaseAuth.instance.currentUser!.uid;
@@ -50,7 +49,9 @@ class _CustomDialogState extends State<CustomDialog> {
             const SizedBox(height: 30),
             CustomTextField(
                 errorText: isNull ? 'Can`t be empty' : null,
-                format: widget.isNotes! ? null : [ThousandsSeparatorInputFormatter()],
+                format: widget.isNotes!
+                    ? null
+                    : [ThousandsSeparatorInputFormatter()],
                 maxLength: widget.isNotes! ? 150 : 9,
                 border: const UnderlineInputBorder(),
                 keyboardType: widget.isNotes! ? null : TextInputType.number,
@@ -84,8 +85,13 @@ class _CustomDialogState extends State<CustomDialog> {
                       });
                     } else {
                       Navigator.pop(context);
-                      updateDataIfUidAndNameExist('${widget.text}', uid,
-                          _controller.text, _selectedDate.toString());
+                      DBFunctions().updateDataIfUidAndNameExist(
+                          '${widget.text}',
+                          uid,
+                          _controller.text,
+                          _selectedDate.toString(),
+                          context,
+                          _selectedDate);
                     }
                   } else {
                     if (_controller.text.isEmpty) {
@@ -94,7 +100,7 @@ class _CustomDialogState extends State<CustomDialog> {
                       });
                     } else {
                       Navigator.pop(context);
-                      writeDataToFirebase(_controller.text);
+                      DBFunctions().writeDataToFirebase(_controller.text, uid);
                     }
                   }
                 },
@@ -103,67 +109,5 @@ class _CustomDialogState extends State<CustomDialog> {
         ),
       ),
     );
-  }
-
-  Future<void> writeDataToFirebase(note) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('notes')
-          .add({'note': note, 'uid': uid});
-    } catch (e) {
-      debugPrint('error');
-    }
-  }
-
-  Future<void> updateDataIfUidAndNameExist(
-      String name, String uid, String mileage, String date) async {
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection('data')
-        .where('uid', isEqualTo: uid)
-        .where('name', isEqualTo: name)
-        .limit(1)
-        .get();
-
-    if (querySnapshot.docs.isNotEmpty) {
-      final fixedDate =
-          '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
-      // Если документ существует, обновляем данные
-      try {
-        final documentSnapshot = querySnapshot.docs.first;
-        await documentSnapshot.reference.update({
-          'name': name,
-          'uid': uid,
-          'mileage': mileage,
-          'date': fixedDate,
-        });
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: MyColors.emergencyGreen,
-          content: Text(
-            'Saved',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ));
-      } catch (e) {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: MyColors.emergencyGreen,
-          content: Text(
-            'Error, try one more time.',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ));
-      }
-    } else {
-      final fixedDate =
-          '${_selectedDate.day}.${_selectedDate.month}.${_selectedDate.year}';
-      // Если документ не существует, создаем новый
-      await FirebaseFirestore.instance.collection('data').add({
-        'name': name,
-        'uid': uid,
-        'mileage': mileage,
-        'date': fixedDate,
-      });
-    }
   }
 }

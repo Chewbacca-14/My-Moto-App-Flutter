@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+
 import '../constants/api_consts.dart';
 import '../models/chat_model.dart';
 import '../models/models_model.dart';
@@ -13,8 +14,8 @@ class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     try {
       var response = await http.get(
-        Uri.parse("$BASE_URL/models"),
-        headers: {'Authorization': 'Bearer $API_KEY'},
+        Uri.parse("$baseUrl/models"),
+        headers: {'Authorization': 'Bearer $apiKey'},
       );
 
       Map jsonResponse = jsonDecode(response.body);
@@ -42,9 +43,9 @@ class ApiService {
     try {
       log("modelId $modelId");
       var response = await http.post(
-        Uri.parse("$BASE_URL/chat/completions"),
+        Uri.parse("$baseUrl/chat/completions"),
         headers: {
-          'Authorization': 'Bearer $API_KEY',
+          'Authorization': 'Bearer $apiKey',
           "Content-Type": "application/json"
         },
         body: jsonEncode(
@@ -90,9 +91,9 @@ class ApiService {
     try {
       log("modelId $modelId");
       var response = await http.post(
-        Uri.parse("$BASE_URL/chat/completions"),
+        Uri.parse("$baseUrl/chat/completions"),
         headers: {
-          'Authorization': 'Bearer $API_KEY',
+          'Authorization': 'Bearer $apiKey',
           "Content-Type": "application/json"
         },
         body: jsonEncode(

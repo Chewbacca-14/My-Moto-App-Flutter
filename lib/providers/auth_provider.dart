@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
 
 
-// import 'package:flutter/material.dart';
+
 
 class AuthProvider {
 //create new user
@@ -40,7 +40,7 @@ class AuthProvider {
   //login
   Future<void> login(context, String email, String password) async {
     try {
-      // Navigator.pop(context);
+      
 
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -53,7 +53,7 @@ class AuthProvider {
       }
       debugPrint('Login');
     } catch (e) {
-      // Обработка ошибки:
+     
       String errorMessage = '';
       if (e is FirebaseAuthException) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
@@ -62,7 +62,7 @@ class AuthProvider {
           errorMessage = 'Login error';
         }
       }
-      // Отображение ошибки в виде snackbar:
+      
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: MyColors.textRed,
         content: Text(
@@ -77,7 +77,7 @@ class AuthProvider {
   Future<bool> forgotPassword(String email, context) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      // В случае успеха отображаем сообщение об успешной отправке на указанный email
+      
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: MyColors.emergencyGreen,
         content: Text(
@@ -87,7 +87,7 @@ class AuthProvider {
       ));
       return true;
     } catch (e) {
-      // В случае ошибки выводим сообщение с ошибкой
+     
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: MyColors.textRed,
         content: Text(

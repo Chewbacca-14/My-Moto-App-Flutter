@@ -33,12 +33,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    shuffleItems(); // Shuffle the items when the state is initialized
+    shuffleItems(); 
   }
 
   void shuffleItems() {
     setState(() {
-      names.shuffle(Random()); // Shuffle the list using a random seed
+      names.shuffle(Random()); 
     });
   }
 

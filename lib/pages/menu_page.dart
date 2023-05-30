@@ -36,28 +36,28 @@ class _MenuPageState extends State<MenuPage> {
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
           items: [
-            /// Home
+           
             SalomonBottomBarItem(
               icon: const Icon(Icons.home_outlined),
               title: const Text("Home"),
               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
-            /// Likes
+           
             SalomonBottomBarItem(
               icon: const Icon(Icons.chat_outlined),
               title: const Text("Chat Bot"),
                selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
-            /// Search
+           
             SalomonBottomBarItem(
               icon: const Icon(Icons.notes_rounded),
               title: const Text("Notes"),
               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
 
-            /// Profile
+            
             SalomonBottomBarItem(
               icon: const Icon(Icons.settings_rounded),
               title: const Text("Settings"),

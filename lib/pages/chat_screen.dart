@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             const SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -121,7 +121,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 42,
                       child: Center(
                         child: TextField(
@@ -181,7 +181,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: TextWidget(
-            label: "You cant send multiple messages at a time",
+            label: "You can't send multiple messages at a time",
           ),
           backgroundColor: Colors.red,
         ),
@@ -203,17 +203,14 @@ class _ChatScreenState extends State<ChatScreen> {
       String msg = textEditingController.text;
       setState(() {
         _isTyping = true;
-        // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
+       
         chatProvider.addUserMessage(msg: msg);
         textEditingController.clear();
         focusNode.unfocus();
       });
       await chatProvider.sendMessageAndGetAnswers(
           msg: msg, chosenModelId: modelsProvider.getCurrentModel);
-      // chatList.addAll(await ApiService.sendMessage(
-      //   message: textEditingController.text,
-      //   modelId: modelsProvider.getCurrentModel,
-      // ));
+      
       setState(() {});
     } catch (error) {
       log("error $error");

@@ -134,7 +134,7 @@ class _VerifyPageState extends State<VerifyPage> {
                   text: 'We`ve sent a verify link to your Email',
                   bold: false,
                   size: 14,
-                  color: MyColors.mainGreyFirst),
+                  color: MyColors.mainGreySecond),
             ),
             const SizedBox(height: 3),
             Padding(
@@ -147,7 +147,7 @@ class _VerifyPageState extends State<VerifyPage> {
             ),
             const SizedBox(height: 80),
             CustomButton(
-              color: canResend ? MyColors.mainOrange : MyColors.mainGreyFirst,
+              color: canResend ? MyColors.mainOrange : MyColors.mainGreySecond,
               onTap: canResend ? _resendCode : null,
               text: 'Resend Email',
             ),

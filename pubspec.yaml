@@ -85,17 +85,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/white_logo.png
+    
     - assets/images/google.png
-    - assets/images/vk.png
+    
     - assets/images/chat_logo.png
     - assets/images/person.png
     - assets/images/openai_logo.jpg
-    - assets/images/red_logo.png
-    - assets/images/first_illustration.png
-    - assets/images/illustartion.png
-    - assets/images/illustration3.png
-    - assets/images/illustration4.png
+ 
     - assets/images/moto.png
     - assets/images/verify.jpg
     - assets/images/read.png
@@ -109,8 +105,8 @@ flutter:
     - assets/images/chain.png
     - assets/images/oilfilter.png
     - assets/images/bgcard.jpg
-    - assets/images/bg.jpg
-    - assets/images/bgcardblack.png
+    
+    
     
   #   - images/a_dot_ham.jpeg
 
