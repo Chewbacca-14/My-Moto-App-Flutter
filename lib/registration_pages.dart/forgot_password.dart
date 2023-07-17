@@ -16,13 +16,22 @@ class ForgotPaswordPage extends StatefulWidget {
 }
 
 class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
+  //text editing controller
   final TextEditingController _emailController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+
+  //text on button
   String buttonText = 'Send';
+
+  //variables for timer
   int secondsRemaining = 30;
   Timer? timer;
   bool canResend = true;
+
+  //check if email was verified
   bool isEmailVerified = false;
+
+  //other variables
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {

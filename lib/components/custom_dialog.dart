@@ -10,6 +10,7 @@ import '../utils/formatter.dart';
 
 class CustomDialog extends StatefulWidget {
   final String? text;
+  //if this dialog for note page or main1
   final bool? isNotes;
 
   const CustomDialog({super.key, this.text, this.isNotes});
@@ -19,10 +20,15 @@ class CustomDialog extends StatefulWidget {
 }
 
 class _CustomDialogState extends State<CustomDialog> {
+  //bool for checking text field if it is empty
   late bool isNull = false;
+  //get current user id
   var uid = FirebaseAuth.instance.currentUser!.uid;
+  //get date and time now
   DateTime _selectedDate = DateTime.now();
+  //text editing controller
   final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(

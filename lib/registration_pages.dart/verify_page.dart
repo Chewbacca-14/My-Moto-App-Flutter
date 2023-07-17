@@ -16,10 +16,12 @@ class VerifyPage extends StatefulWidget {
 }
 
 class _VerifyPageState extends State<VerifyPage> {
+  //variables for timer
   int secondsRemaining = 30;
   Timer? timer;
   Timer? timer2;
   bool canResend = false;
+  //bool for checking if emails is verified
   bool isEmailVerified = false;
 
   @override
@@ -50,6 +52,7 @@ class _VerifyPageState extends State<VerifyPage> {
     });
   }
 
+//check if email was verified or not
   Future<void> checkEmailVerified() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
@@ -66,6 +69,7 @@ class _VerifyPageState extends State<VerifyPage> {
     }
   }
 
+//send verification email function
   Future sendVerificationEmail() async {
     try {
       final user = FirebaseAuth.instance.currentUser!;
@@ -92,6 +96,7 @@ class _VerifyPageState extends State<VerifyPage> {
     super.dispose();
   }
 
+//resend verification code to email 
   void _resendCode() {
     sendVerificationEmail();
     const snackBar = SnackBar(

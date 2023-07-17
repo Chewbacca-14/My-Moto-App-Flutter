@@ -13,10 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //current user id
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
+  //other variables
   var user = FirebaseAuth.instance.currentUser;
 
+  //list of all names for cards
   List<String> names = [
     'Oil',
     'Brakes',
@@ -34,6 +37,7 @@ class _HomePageState extends State<HomePage> {
     shuffleItems();
   }
 
+  //shuffle all cards
   void shuffleItems() {
     setState(() {
       names.shuffle(Random());
@@ -42,36 +46,40 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //get firestore stream
     var stream = FirebaseFirestore.instance
         .collection('data')
         .where('uid', isEqualTo: uid)
         .snapshots();
+
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: StreamBuilder(
-            stream: stream,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return const SizedBox();
-              var doc = snapshot.data!.docs;
-              return ListView.builder(
-                itemCount: names.length,
-                itemBuilder: (context, index) {
-                  return MainCard(
-                    url: names[index] == 'Oil Filter'
-                        ? 'assets/images/oilfilter.png'
-                        : names[index] == 'Brake Fluid'
-                            ? 'assets/images/brakefluid.png'
-                            : 'assets/images/${names[index].toLowerCase()}.png',
-                    mileage: doc.firstWhereOrNull(
-                            ((d) => d['name'] == names[index]))?['mileage'] ??
-                        '00 000',
-                    name: names[index],
-                    date: doc.firstWhereOrNull(
-                            ((d) => d['name'] == names[index]))?['date'] ??
-                        '00.00.0000',
-                  );
-                },
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: StreamBuilder(
+        stream: stream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const SizedBox();
+          var doc = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: names.length,
+            itemBuilder: (context, index) {
+              return MainCard(
+                url: names[index] == 'Oil Filter'
+                    ? 'assets/images/oilfilter.png'
+                    : names[index] == 'Brake Fluid'
+                        ? 'assets/images/brakefluid.png'
+                        : 'assets/images/${names[index].toLowerCase()}.png',
+                mileage: doc.firstWhereOrNull(
+                        ((d) => d['name'] == names[index]))?['mileage'] ??
+                    '00 000',
+                name: names[index],
+                date: doc.firstWhereOrNull(
+                        ((d) => d['name'] == names[index]))?['date'] ??
+                    '00.00.0000',
               );
-            }));
+            },
+          );
+        },
+      ),
+    );
   }
 }

@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:motoappv2/db_utils/db_functions.dart';
 import '../helpers/fonts.dart';
 import 'box_decoration.dart';
 
@@ -10,8 +10,10 @@ class NotesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //variables for theme
     ThemeData themeData = Theme.of(context);
     bool isLightTheme = themeData.brightness == Brightness.light;
+
     return Padding(
       padding: const EdgeInsets.all(15).copyWith(top: 7, bottom: 7),
       child: GestureDetector(
@@ -29,13 +31,7 @@ class NotesCard extends StatelessWidget {
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     onPressed: () async {
                       Navigator.pop(context);
-                      final querySnapshot = await FirebaseFirestore.instance
-                          .collection('notes')
-                          .where('note', isEqualTo: note)
-                          .limit(1)
-                          .get();
-                      final documentSnapshot = querySnapshot.docs.first;
-                      await documentSnapshot.reference.delete();
+                      DBFunctions().deleteNotes(note);
                     },
                     child: Text(
                       'Delete',
@@ -62,17 +58,7 @@ class NotesCard extends StatelessWidget {
                     fit: BoxFit.fill)
                 : null,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              isLightTheme
-                  ? standartShadow(
-                      color: const Color.fromARGB(255, 58, 58, 58)
-                          .withOpacity(0.5),
-                    )
-                  : standartShadow(
-                      color: const Color.fromARGB(255, 238, 238, 238)
-                          .withOpacity(0.5),
-                    ),
-            ],
+            boxShadow: [isLightTheme ? darkShadow() : lightkShadow()],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

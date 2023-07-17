@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:motoappv2/helpers/fonts.dart';
 import 'package:motoappv2/providers/auth_provider.dart';
-
 import 'package:motoappv2/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import '../packages/settings_page.dart/icon_style.dart';
@@ -20,8 +17,13 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  //current user
   late User? currentUser;
+
+  //profile image form google account
   String? profileImageUrl;
+
+  //user's email
   String? userEmail;
 
   @override
@@ -35,8 +37,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    //variables for theme
     ThemeData themeData = Theme.of(context);
     bool isLightTheme = themeData.brightness == Brightness.light;
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(

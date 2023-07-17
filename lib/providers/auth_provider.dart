@@ -57,13 +57,15 @@ class AuthProvider {
         }
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        backgroundColor: MyColors.textRed,
-        content: Text(
-          errorMessage,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: MyColors.textRed,
+          content: Text(
+            errorMessage,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-      ));
+      );
     }
   }
 
@@ -116,12 +118,12 @@ class AuthProvider {
     }
   }
 
+//sign out
   void signOut(context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       googleSignIn.disconnect();
-
       auth.signOut();
       Navigator.pushReplacementNamed(context, '/login');
     } catch (e) {

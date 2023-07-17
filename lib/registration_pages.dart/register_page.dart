@@ -15,18 +15,25 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  //variables for text fields focus
   final FocusNode _email = FocusNode();
   final FocusNode _pw = FocusNode();
   final FocusNode _confirmPw = FocusNode();
+
+  //text editing controllers for fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  //variables for obscure text
+  late bool isObscure = true;
+  late bool isObscure2 = true;
+
+  //other variables
   final _formKey = GlobalKey<FormState>();
   bool checkPw = false;
   bool checkEmpty = false;
-  late bool isObscure = true;
-  late bool isObscure2 = true;
 
   @override
   Widget build(BuildContext context) {

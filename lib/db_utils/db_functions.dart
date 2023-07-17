@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../helpers/colors_palette.dart';
 
 class DBFunctions {
+  //update data if uid and name exist and write if not exist
   Future<void> updateDataIfUidAndNameExist(
       String name,
       String uid,
@@ -64,6 +65,7 @@ class DBFunctions {
       });
     }
   }
+  //Write note to firestore
 
   Future<void> writeDataToFirebase(note, uid) async {
     try {
@@ -74,4 +76,17 @@ class DBFunctions {
       debugPrint('error');
     }
   }
+
+//Delete note from firestore
+  Future<void> deleteNotes(String? note) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('notes')
+        .where('note', isEqualTo: note)
+        .limit(1)
+        .get();
+    final documentSnapshot = querySnapshot.docs.first;
+    await documentSnapshot.reference.delete();
+  }
+
+  
 }

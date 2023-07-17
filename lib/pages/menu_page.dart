@@ -19,7 +19,10 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  //current page index
   var _currentIndex = 0;
+
+  //list of all pages
   List<Widget> pageList = [
     const HomePage(),
     const ChatScreen(),

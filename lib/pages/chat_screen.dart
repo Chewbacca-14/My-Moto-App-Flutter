@@ -1,13 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/fonts.dart';
-
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/chats_provider.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/models_provider.dart';
-
 import 'package:motoappv2/pages/chat_gpt/widgets/chat_widget.dart';
 import 'package:motoappv2/pages/chat_gpt/widgets/text_widget.dart';
 
@@ -19,11 +16,16 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  //check if bot is typing
   bool _isTyping = false;
 
+  //other variables
   late TextEditingController textEditingController;
   late ScrollController _listScrollController;
+
+  //focus node for text field
   late FocusNode focusNode;
+
   @override
   void initState() {
     _listScrollController = ScrollController();
@@ -40,11 +42,12 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-  // List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
+    //providers
     final modelsProvider = Provider.of<ModelsProvider>(context);
     final chatProvider = Provider.of<ChatProvider>(context);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -57,36 +60,39 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                      icon: const Icon(
-                        Icons.info_outline,
-                        color: Colors.redAccent,
-                      ),
-                      color: Colors.black,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Who am I ?'),
-                            content: Text(
-                              'I am a ChatGPT based bot. I can answer any of your questions.',
-                              style: mainTextStyle(18, context),
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .background,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('Ok',
-                                      style: mainTextStyle(18, context)))
-                            ],
+                    icon: const Icon(
+                      Icons.info_outline,
+                      color: Colors.redAccent,
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Who am I ?'),
+                          content: Text(
+                            'I am a ChatGPT based bot. I can answer any of your questions.',
+                            style: mainTextStyle(18, context),
                           ),
-                        );
-                      })
+                          actions: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.background,
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Ok',
+                                style: mainTextStyle(18, context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -94,13 +100,11 @@ class _ChatScreenState extends State<ChatScreen> {
             Flexible(
               child: ListView.builder(
                   controller: _listScrollController,
-                  itemCount: chatProvider.getChatList.length, //chatList.length,
+                  itemCount: chatProvider.getChatList.length,
                   itemBuilder: (context, index) {
                     return ChatWidget(
-                      msg: chatProvider
-                          .getChatList[index].msg, // chatList[index].msg,
-                      chatIndex: chatProvider.getChatList[index]
-                          .chatIndex, //chatList[index].chatIndex,
+                      msg: chatProvider.getChatList[index].msg,
+                      chatIndex: chatProvider.getChatList[index].chatIndex,
                       shouldAnimate:
                           chatProvider.getChatList.length - 1 == index,
                     );
@@ -134,6 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 chatProvider: chatProvider);
                           },
                           decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(top: 7, left: 10),
                               fillColor: Theme.of(context)
                                   .colorScheme
                                   .primaryContainer,
@@ -142,6 +147,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
+                              
                               hintText: "How can I help you",
                               hintStyle: mainTextStyle(16, context)),
                         ),
@@ -149,15 +155,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () async {
-                        await sendMessageFCT(
-                            modelsProvider: modelsProvider,
-                            chatProvider: chatProvider);
-                      },
-                      icon: Icon(
-                        Icons.send,
-                        color: Theme.of(context).colorScheme.primary,
-                      ))
+                    onPressed: () async {
+                      await sendMessageFCT(
+                          modelsProvider: modelsProvider,
+                          chatProvider: chatProvider);
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -166,6 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
 
   void scrollListToEND() {
     _listScrollController.animateTo(

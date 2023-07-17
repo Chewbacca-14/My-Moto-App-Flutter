@@ -7,3 +7,15 @@ BoxShadow standartShadow({required Color color}) {
     blurRadius: 2,
   );
 }
+
+BoxShadow darkShadow() {
+  return standartShadow(
+    color: const Color.fromARGB(255, 58, 58, 58).withOpacity(0.5),
+  );
+}
+
+BoxShadow lightkShadow() {
+  return standartShadow(
+    color: const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
+  );
+}

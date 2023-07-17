@@ -15,15 +15,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  //bool for checking if user already have account
   bool _isUserLoggedIn = false;
 
+  //call AuthProvider with Auth functions
   AuthProvider user = AuthProvider();
+
   @override
   void initState() {
     super.initState();
     checkUserLoginStatus();
   }
 
+  //check if user already have account
   void checkUserLoginStatus() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -42,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  late Image myImage;
   @override
   @override
   Widget build(BuildContext context) {
