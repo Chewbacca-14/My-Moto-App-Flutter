@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/fonts.dart';
+import 'package:motoappv2/pages/chat_gpt/constants/settings_photo.dart';
 import 'package:motoappv2/providers/auth_provider.dart';
 import 'package:motoappv2/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -30,8 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
-    profileImageUrl = currentUser!.photoURL ??
-        "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png";
+    profileImageUrl = currentUser!.photoURL ?? photoUrl;
     userEmail = currentUser!.email ?? 'null';
   }
 

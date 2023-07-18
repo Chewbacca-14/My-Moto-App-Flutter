@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/card_notes.dart';
 import 'package:motoappv2/components/custom_dialog.dart';
+import 'package:motoappv2/db_utils/db_functions.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -15,14 +16,19 @@ class _NotesPageState extends State<NotesPage> {
   //current user uid
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
+  //get Stream
+  DBFunctions getStream = DBFunctions();
+  late Stream<QuerySnapshot<Map<String, dynamic>>> stream;
+
+  @override
+  void initState() {
+    super.initState();
+    stream = getStream.getStream(
+        collectionName: 'notes', where: 'uid', isEqualTo: uid);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //get firestore stream
-    var stream = FirebaseFirestore.instance
-        .collection('notes')
-        .where('uid', isEqualTo: uid)
-        .snapshots();
-
     return Scaffold(
       body: StreamBuilder(
         stream: stream,
@@ -30,9 +36,10 @@ class _NotesPageState extends State<NotesPage> {
           if (!snapshot.hasData) return const SizedBox();
           var doc = snapshot.data!.docs;
           return ListView.builder(
+            physics: const BouncingScrollPhysics(),
             itemCount: doc.length,
             itemBuilder: (context, index) {
-              return NotesCard(note: doc[index]['note']);
+              return NotesCard(note: doc[index]['note'], date: doc[index]['date'],);
             },
           );
         },

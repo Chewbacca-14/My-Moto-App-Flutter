@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/db_utils/db_functions.dart';
 import '../helpers/fonts.dart';
@@ -5,8 +6,10 @@ import 'box_decoration.dart';
 
 class NotesCard extends StatelessWidget {
   final String? note;
+  final String? date;
 
-  const NotesCard({Key? key, required this.note}) : super(key: key);
+  const NotesCard({Key? key, required this.note, required this.date})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,20 +53,31 @@ class NotesCard extends StatelessWidget {
           height: 130,
           decoration: BoxDecoration(
             color: isLightTheme
-                ? null
+                ? Color.fromARGB(255, 249, 249, 249)
                 : Theme.of(context).colorScheme.primaryContainer,
-            image: isLightTheme
-                ? const DecorationImage(
-                    image: AssetImage('assets/images/bgcard.jpg'),
-                    fit: BoxFit.fill)
-                : null,
+            // image: isLightTheme
+            //     ? const DecorationImage(
+            //         image: AssetImage('assets/images/bgcard.jpg'),
+            //         fit: BoxFit.fill)
+            //     : null,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [isLightTheme ? darkShadow() : lightkShadow()],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 9),
+              Row(
+                children: [
+                  const SizedBox(width: 15),
+                 const Icon(Icons.date_range_outlined, color: Colors.blue),
+                 const SizedBox(width: 4),
+                  Text(
+                    '$date',
+                    style:  TextStyle(fontSize: 15, color: isLightTheme ? const Color.fromARGB(255, 48, 48, 48) : Colors.white, fontWeight: FontWeight.w500)
+                  ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(

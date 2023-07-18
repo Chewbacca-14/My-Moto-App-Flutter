@@ -67,11 +67,13 @@ class DBFunctions {
   }
   //Write note to firestore
 
-  Future<void> writeDataToFirebase(note, uid) async {
+  Future<void> writeDataToFirebase(note, uid, date) async {
+     final fixedDate =
+          '${date.day}.${date.month}.${date.year}';
     try {
       await FirebaseFirestore.instance
           .collection('notes')
-          .add({'note': note, 'uid': uid});
+          .add({'note': note, 'uid': uid, 'date': fixedDate});
     } catch (e) {
       debugPrint('error');
     }
@@ -88,5 +90,14 @@ class DBFunctions {
     await documentSnapshot.reference.delete();
   }
 
-  
+  Stream<QuerySnapshot<Map<String, dynamic>>> getStream({
+    required String isEqualTo,
+    required String collectionName,
+    required String where,
+  }) {
+    return FirebaseFirestore.instance
+        .collection(collectionName)
+        .where(where, isEqualTo: isEqualTo)
+        .snapshots();
+  }
 }

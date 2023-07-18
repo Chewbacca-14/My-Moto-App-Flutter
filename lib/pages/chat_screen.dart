@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/chats_provider.dart';
 import 'package:motoappv2/pages/chat_gpt/providers/models_provider.dart';
-import 'package:motoappv2/pages/chat_gpt/widgets/chat_widget.dart';
-import 'package:motoappv2/pages/chat_gpt/widgets/text_widget.dart';
+import 'package:motoappv2/pages/chat_gpt/pages/chat_widget.dart';
+import 'package:motoappv2/pages/chat_gpt/pages/text_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});

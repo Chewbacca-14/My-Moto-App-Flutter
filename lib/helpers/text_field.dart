@@ -44,6 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 30),
       child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
         maxLines: 1,
         maxLength: widget.maxLength,
         inputFormatters: widget.format,

@@ -31,6 +31,8 @@ class _CustomDialogState extends State<CustomDialog> {
 
   @override
   Widget build(BuildContext context) {
+    //get date
+    DateTime date = DateTime.now();
     return AlertDialog(
       backgroundColor: Colors.transparent,
       content: Container(
@@ -38,7 +40,7 @@ class _CustomDialogState extends State<CustomDialog> {
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.background,
         ),
-        height: widget.isNotes! ? 230 : 300,
+        height: widget.isNotes! ? 230 : (isNull ? 320 : 300),
         width: 300,
         child: Column(
           children: [
@@ -52,11 +54,12 @@ class _CustomDialogState extends State<CustomDialog> {
             ),
             const SizedBox(height: 30),
             CustomTextField(
+                autofocus: true,
                 errorText: isNull ? 'Can`t be empty' : null,
                 format: widget.isNotes!
                     ? null
                     : [ThousandsSeparatorInputFormatter()],
-                maxLength: widget.isNotes! ? 150 : 9,
+                maxLength: widget.isNotes! ? 100 : 9,
                 border: const UnderlineInputBorder(),
                 keyboardType: widget.isNotes! ? null : TextInputType.number,
                 hintText: widget.isNotes! ? 'Notes' : 'Mileage',
@@ -104,7 +107,9 @@ class _CustomDialogState extends State<CustomDialog> {
                       });
                     } else {
                       Navigator.pop(context);
-                      DBFunctions().writeDataToFirebase(_controller.text, uid);
+
+                      DBFunctions()
+                          .writeDataToFirebase(_controller.text, uid, date);
                     }
                   }
                 },
