@@ -4,7 +4,6 @@ import 'package:motoappv2/components/card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
-
 import 'package:motoappv2/db_utils/db_functions.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   String uid = FirebaseAuth.instance.currentUser!.uid.toString();
 
   //other variables
-  var user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
 
   //list of all names for cards
   List<String> names = [
@@ -37,19 +36,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     shuffleItems();
-    stream = getStream.getStream(
-        collectionName: 'data', where: 'uid', isEqualTo: uid);
+    stream = firestoreStream(collectionName: 'data', where: 'uid', isEqualTo: uid);
   }
 
   //shuffle all cards
   void shuffleItems() {
-    setState(() {
-      names.shuffle(Random());
-    });
+    names.shuffle(Random());
   }
 
-  //get Firestore stream
-  DBFunctions getStream = DBFunctions();
   late Stream<QuerySnapshot<Map<String, dynamic>>> stream;
 
   @override
@@ -62,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           if (!snapshot.hasData) return const SizedBox();
           var doc = snapshot.data!.docs;
           return ListView.builder(
-              physics: const BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             itemCount: names.length,
             itemBuilder: (context, index) {
               return MainCard(

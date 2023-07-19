@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/db_utils/db_functions.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
-
 import 'package:motoappv2/helpers/text_field.dart';
+import 'package:motoappv2/utils/formatter.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
-import '../utils/formatter.dart';
+
 
 class CustomDialog extends StatefulWidget {
   final String? text;
-  //if this dialog for note page or main1
+  //if this dialog for note page or main page
   final bool? isNotes;
 
   const CustomDialog({super.key, this.text, this.isNotes});
@@ -92,13 +92,8 @@ class _CustomDialogState extends State<CustomDialog> {
                       });
                     } else {
                       Navigator.pop(context);
-                      DBFunctions().updateDataIfUidAndNameExist(
-                          '${widget.text}',
-                          uid,
-                          _controller.text,
-                          _selectedDate.toString(),
-                          context,
-                          _selectedDate);
+                      updateOrCreate('${widget.text}', uid, _controller.text,
+                          _selectedDate.toString(), context, _selectedDate);
                     }
                   } else {
                     if (_controller.text.isEmpty) {
@@ -108,8 +103,7 @@ class _CustomDialogState extends State<CustomDialog> {
                     } else {
                       Navigator.pop(context);
 
-                      DBFunctions()
-                          .writeDataToFirebase(_controller.text, uid, date);
+                      createNote(_controller.text, uid, date);
                     }
                   }
                 },

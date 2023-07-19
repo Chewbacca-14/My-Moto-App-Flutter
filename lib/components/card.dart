@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/box_decoration.dart';
+import 'package:motoappv2/components/custom_dialog.dart';
 import 'package:motoappv2/helpers/fonts.dart';
-import 'custom_dialog.dart';
+
 
 class MainCard extends StatelessWidget {
   final String? mileage;

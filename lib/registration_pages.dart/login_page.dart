@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/providers/auth_provider.dart';
 import 'package:motoappv2/utils/validation.dart';
-import '../helpers/colors_palette.dart';
-import '../helpers/custom_button.dart';
-import '../helpers/fonts.dart';
-import '../helpers/text_field.dart';
-import '../utils/field_focus_change.dart';
+import 'package:motoappv2/helpers/colors_palette.dart';
+import 'package:motoappv2/helpers/custom_button.dart';
+import 'package:motoappv2/helpers/fonts.dart';
+import 'package:motoappv2/helpers/text_field.dart';
+import 'package:motoappv2/utils/field_focus_change.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -54,12 +54,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
-                  onFieldSubmitted: (_) => FocusChange()
-                      .fieldFocusChange(context, _email, _password),
+                  onFieldSubmitted: (_) =>
+                      fieldFocusChange(context, _email, _password),
                   autofocus: true,
                   focusNode: _email,
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => Validation().validateEmail(value),
+                  validator: (value) => validateEmail(value),
                   controller: _emailController,
                   hintText: 'Email',
                   icon: const Icon(
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscure: isObscure,
                   focusNode: _password,
                   keyboardType: TextInputType.visiblePassword,
-                  validator: (value) => Validation().validatePassword(value),
+                  validator: (value) => validatePassword(value),
                   controller: _passwordController,
                   hintText: 'Password',
                   icon: const Icon(
@@ -112,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                 CustomButton(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        AuthProvider().login(context, _emailController.text,
+                        login(context, _emailController.text,
                             _passwordController.text);
                       }
                     },
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
                 CustomButton2(
                   onTap: () {
-                    AuthProvider().signInWithGoogle(context);
+                    signInWithGoogle(context);
                   },
                   text: 'Login with Google',
                   url: 'assets/images/google.png',

@@ -4,7 +4,7 @@ Text titleText(
     {required String text,
     required bool bold,
     required double size,
-    required context,
+    required BuildContext context,
     bool center = false}) {
   return Text(
     text,
@@ -22,7 +22,7 @@ Text mainText(
     bool textAlighn = false,
     required bool bold,
     required double size,
-    required color}) {
+    required Color color}) {
   return Text(
     text,
     textAlign: textAlighn ? TextAlign.center : null,

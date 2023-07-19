@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:motoappv2/helpers/fonts.dart';
 import 'colors_palette.dart';
-import 'fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final dynamic onTap;
+  final void Function()? onTap;
   final Color? color;
   const CustomButton(
       {super.key, required this.onTap, required this.text, this.color});
@@ -18,6 +18,7 @@ class CustomButton extends StatelessWidget {
             color: color ?? MyColors.mainOrange,
             borderRadius: BorderRadius.circular(10)),
         child: Material(
+          elevation: 5,
           borderRadius: BorderRadius.circular(10),
           color: Colors.transparent,
           child: InkWell(

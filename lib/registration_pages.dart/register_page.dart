@@ -1,11 +1,11 @@
-import '../helpers/colors_palette.dart';
-import '../helpers/custom_button.dart';
-import '../helpers/fonts.dart';
-import '../helpers/text_field.dart';
+import 'package:motoappv2/helpers/colors_palette.dart';
+import 'package:motoappv2/helpers/custom_button.dart';
+import 'package:motoappv2/helpers/fonts.dart';
+import 'package:motoappv2/helpers/text_field.dart';
 import 'package:flutter/material.dart';
-import '../utils/field_focus_change.dart';
-import '../utils/validation.dart';
-import '../providers/auth_provider.dart';
+import 'package:motoappv2/utils/field_focus_change.dart';
+import 'package:motoappv2/utils/validation.dart';
+import 'package:motoappv2/providers/auth_provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -16,14 +16,14 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   //variables for text fields focus
-  final FocusNode _email = FocusNode();
-  final FocusNode _pw = FocusNode();
-  final FocusNode _confirmPw = FocusNode();
+  final FocusNode email = FocusNode();
+  final FocusNode pw = FocusNode();
+  final FocusNode confirmPw = FocusNode();
 
   //text editing controllers for fields
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
       TextEditingController();
 
   //variables for obscure text
@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   late bool isObscure2 = true;
 
   //other variables
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   bool checkPw = false;
   bool checkEmpty = false;
 
@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,12 +71,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 20),
                 CustomTextField(
                   autofocus: true,
-                  focusNode: _email,
-                  onFieldSubmitted: (_) =>
-                      FocusChange().fieldFocusChange(context, _email, _pw),
+                  focusNode: email,
+                  onFieldSubmitted: (_) => fieldFocusChange(context, email, pw),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => Validation().validateEmail(value),
-                  controller: _emailController,
+                  validator: (value) => validateEmail(value),
+                  controller: emailController,
                   hintText: 'Email',
                   icon: const Icon(
                     Icons.person_3_outlined,
@@ -95,12 +94,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       isObscure = !isObscure;
                     }),
                   ),
-                  focusNode: _pw,
+                  focusNode: pw,
                   onFieldSubmitted: (_) =>
-                      FocusChange().fieldFocusChange(context, _pw, _confirmPw),
+                      fieldFocusChange(context, pw, confirmPw),
                   keyboardType: TextInputType.visiblePassword,
-                  validator: (value) => Validation().validatePassword(value),
-                  controller: _passwordController,
+                  validator: (value) => validatePassword(value),
+                  controller: passwordController,
                   hintText: 'Password',
                   icon: const Icon(
                     Icons.lock_open_outlined,
@@ -109,12 +108,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 5),
                 CustomTextField(
                   obscure: isObscure2,
-                  validator: (value) =>
-                      Validation().validateConfirmPassword(value),
-                  focusNode: _confirmPw,
+                  validator: (value) => validateConfirmPassword(value),
+                  focusNode: confirmPw,
                   errorText: checkPw ? 'Pw don`t match' : '',
                   keyboardType: TextInputType.visiblePassword,
-                  controller: _confirmPasswordController,
+                  controller: confirmPasswordController,
                   hintText: 'Confirm Password',
                   icon: const Icon(
                     Icons.lock_open_outlined,
@@ -133,24 +131,24 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 35),
                 CustomButton(
                     onTap: () {
-                      if (_formKey.currentState!.validate() &&
-                          _passwordController.text ==
-                              _confirmPasswordController.text &&
-                          _passwordController.text.isNotEmpty &&
-                          _confirmPasswordController.text.isNotEmpty) {
+                      if (formKey.currentState!.validate() &&
+                          passwordController.text ==
+                              confirmPasswordController.text &&
+                          passwordController.text.isNotEmpty &&
+                          confirmPasswordController.text.isNotEmpty) {
                         setState(() {
                           checkPw = false;
                         });
-                        AuthProvider().createUser(_emailController.text,
-                            _passwordController.text, context);
-                      } else if (_passwordController.text.isNotEmpty ||
-                          _confirmPasswordController.text.isNotEmpty &&
-                              _confirmPasswordController.text !=
-                                  _passwordController.text) {
+                        createUser(emailController.text,
+                            passwordController.text, context);
+                      } else if (passwordController.text.isNotEmpty ||
+                          confirmPasswordController.text.isNotEmpty &&
+                              confirmPasswordController.text !=
+                                  passwordController.text) {
                         setState(() {
                           checkPw = true;
                         });
-                      } else if (_confirmPasswordController.text.isEmpty) {
+                      } else if (confirmPasswordController.text.isEmpty) {
                         setState(() {
                           checkEmpty = true;
                         });
@@ -160,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 30),
                 CustomButton2(
                   onTap: () {
-                    AuthProvider().signInWithGoogle(context);
+                    signInWithGoogle(context);
                   },
                   text: 'Continue with Google',
                   url: 'assets/images/google.png',

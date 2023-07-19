@@ -1,7 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
@@ -35,7 +32,9 @@ class _VerifyPageState extends State<VerifyPage> {
         if (isEmailVerified) {
           timer?.cancel();
           timer2?.cancel();
-          Navigator.pushReplacementNamed(context, '/menu');
+          if (context.mounted) {
+            Navigator.pushReplacementNamed(context, '/menu');
+          }
         }
       });
     } else {}
@@ -96,7 +95,7 @@ class _VerifyPageState extends State<VerifyPage> {
     super.dispose();
   }
 
-//resend verification code to email 
+//resend verification code to email
   void _resendCode() {
     sendVerificationEmail();
     const snackBar = SnackBar(

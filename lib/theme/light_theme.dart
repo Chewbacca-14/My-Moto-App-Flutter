@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../helpers/colors_palette.dart';
+import 'package:motoappv2/helpers/colors_palette.dart';
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,

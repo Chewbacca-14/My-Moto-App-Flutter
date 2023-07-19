@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:motoappv2/db_utils/db_functions.dart';
-import '../helpers/fonts.dart';
+import 'package:motoappv2/helpers/fonts.dart';
+
 import 'box_decoration.dart';
 
 class NotesCard extends StatelessWidget {
@@ -34,7 +35,7 @@ class NotesCard extends StatelessWidget {
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     onPressed: () async {
                       Navigator.pop(context);
-                      DBFunctions().deleteNotes(note);
+                     deleteNote(note);
                     },
                     child: Text(
                       'Delete',

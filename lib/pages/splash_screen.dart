@@ -1,11 +1,8 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:motoappv2/providers/auth_provider.dart';
+import 'package:motoappv2/pages/menu_page.dart';
 import 'package:motoappv2/registration_pages.dart/register_page.dart';
-
-import 'menu_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,9 +14,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   //bool for checking if user already have account
   bool _isUserLoggedIn = false;
-
-  //call AuthProvider with Auth functions
-  AuthProvider user = AuthProvider();
 
   @override
   void initState() {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:motoappv2/pages/home_page.dart';
 import 'package:motoappv2/pages/notes_page.dart';
 import 'package:motoappv2/pages/settings_page.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-import 'chat_screen.dart';
+
 
 void main() {
   runApp(const MenuPage());
@@ -20,12 +19,11 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   //current page index
-  var _currentIndex = 0;
+  int _currentIndex = 0;
 
   //list of all pages
   List<Widget> pageList = [
     const HomePage(),
-    const ChatScreen(),
     const NotesPage(),
     const SettingsPage(),
   ];
@@ -40,11 +38,6 @@ class _MenuPageState extends State<MenuPage> {
             SalomonBottomBarItem(
               icon: const Icon(Icons.home_outlined),
               title: const Text("Home"),
-              selectedColor: Theme.of(context).colorScheme.tertiary,
-            ),
-            SalomonBottomBarItem(
-              icon: const Icon(Icons.chat_outlined),
-              title: const Text("Chat Bot"),
               selectedColor: Theme.of(context).colorScheme.tertiary,
             ),
             SalomonBottomBarItem(

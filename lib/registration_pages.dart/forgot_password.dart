@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/colors_palette.dart';
 import 'package:motoappv2/helpers/custom_button.dart';
@@ -19,7 +18,6 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
   //text editing controller
   final TextEditingController _emailController = TextEditingController();
 
-  //text on button
   String buttonText = 'Send';
 
   //variables for timer
@@ -70,7 +68,7 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                 ),
                 const SizedBox(height: 35),
                 CustomTextField(
-                    validator: (value) => Validation().validateEmail(value),
+                    validator: validateEmail,
                     hintText: 'Email',
                     icon: const Icon(Icons.email_outlined),
                     controller: _emailController),
@@ -80,9 +78,9 @@ class _ForgotPaswordPageState extends State<ForgotPaswordPage> {
                       canResend ? MyColors.mainOrange : MyColors.mainGreySecond,
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      bool result = await AuthProvider()
-                          .forgotPassword(_emailController.text, context);
-                      if (result == true) {
+                      bool result =
+                          await forgotPassword(_emailController.text, context);
+                      if (result) {
                         timer = Timer.periodic(const Duration(seconds: 1),
                             (Timer timer) {
                           if (secondsRemaining > 0) {

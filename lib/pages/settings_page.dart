@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/helpers/fonts.dart';
-import 'package:motoappv2/pages/chat_gpt/constants/settings_photo.dart';
+import 'package:motoappv2/packages/settings_page.dart/icon_style.dart';
+import 'package:motoappv2/packages/settings_page.dart/settings_group.dart';
+import 'package:motoappv2/packages/settings_page.dart/settings_item.dart';
 import 'package:motoappv2/providers/auth_provider.dart';
 import 'package:motoappv2/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
-import '../packages/settings_page.dart/icon_style.dart';
-import '../packages/settings_page.dart/settings_group.dart';
-import '../packages/settings_page.dart/settings_item.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -31,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     currentUser = FirebaseAuth.instance.currentUser;
-    profileImageUrl = currentUser!.photoURL ?? photoUrl;
+    profileImageUrl = currentUser!.photoURL ?? 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png';
     userEmail = currentUser!.email ?? 'null';
   }
 
@@ -57,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
               repeatPauseDuration: const Duration(milliseconds: 10),
               glowColor: Theme.of(context).colorScheme.tertiary,
               child: Material(
-                elevation: 0,
+                elevation: 5,
                 shape: const CircleBorder(),
                 child: SizedBox(
                   width: 100,
@@ -125,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: () {
                     Provider.of<ThemeProvider>(context, listen: false).isLight =
                         false;
-                    AuthProvider().signOut(context);
+                    signOut(context);
                   },
                   icons: Icons.exit_to_app_rounded,
                   iconStyle: IconStyle(
