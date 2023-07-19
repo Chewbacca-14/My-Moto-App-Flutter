@@ -1,6 +1,6 @@
 # MyMoto - Motorcycle Maintenance Tracker
 
-![MyMoto Logo]([https://link-to-your-logo.png](https://raw.githubusercontent.com/Chewbacca-14/MyMotoV2/master/assets/images/MyMotoIcon.png))
+![MyMoto Logo](https://raw.githubusercontent.com/Chewbacca-14/MyMotoV2/master/assets/images/MyMotoIcon.png)
 
 ## Overview
 
