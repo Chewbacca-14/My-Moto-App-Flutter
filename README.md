@@ -10,19 +10,25 @@ MyMoto is a mobile application designed to help motorcycle owners keep track of 
 
 - **Maintenance Tracking:** Keep a detailed record of all maintenance activities, including oil changes, tire replacements, brake checks, and more. Never miss a scheduled maintenance again!
 
-- **Service Reminders:** Set custom reminders for upcoming maintenance tasks and receive timely notifications, ensuring your motorcycle stays in excellent working condition.
-
 - **Three Main Screens:**
 
-  1. **Dashboard:** Get an overview of your motorcycle's maintenance history and upcoming scheduled tasks.
+  1. **Home:** main screen to track the maintenance of all motorcycle components
 
-  2. **Maintenance Log:** View a comprehensive log of all past maintenance activities with dates and descriptions.
+  2. **Notes:** create a note, for example, if you have made something with a motorcycle
 
-  3. **Service Reminders:** Easily manage and edit your scheduled service reminders to stay on top of future maintenance needs.
+  3. **Settings:** check with which account you are registered or change the theme to black
 
 ## Screenshots
 
-*(Insert some beautiful and relevant screenshots of your app here)*
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005822.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005833.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005906.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010031.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010034.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010042.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010046.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010050.jpg)
+![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010135.jpg)
 
 ## How to Get Started
 
@@ -35,13 +41,12 @@ Follow these simple steps to get started with MyMoto:
 
 ## Feedback and Support
 
-We welcome your feedback! If you encounter any issues or have suggestions for improving MyMoto, please [open an issue](https://link-to-your-issue-tracker) on our GitHub repository.
+Me welcome your feedback! If you encounter any issues or have suggestions for improving MyMoto, please write me to discord chwbcc_max.
 
-For general support and inquiries, you can reach out to us at support@mymotoapp.com.
 
 ## Contributing
 
-We appreciate contributions from the community. If you're interested in contributing to MyMoto, please review our [contribution guidelines](https://link-to-your-contributing-guide) before submitting a pull request.
+Me appreciate contributions from the community. If you're interested in contributing to MyMoto, please write me to discord chwbcc_max.
 
 ## License
 
