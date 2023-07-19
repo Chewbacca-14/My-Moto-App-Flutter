@@ -1,6 +1,6 @@
 # MyMoto - Motorcycle Maintenance Tracker
 
-![MyMoto Logo]([https://link-to-your-logo.png](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/MyMotoIcon.png?raw=true)) *(Replace "link-to-your-logo.png" with the URL or path to your app's logo)*
+![MyMoto Logo]([https://link-to-your-logo.png](https://raw.githubusercontent.com/Chewbacca-14/MyMotoV2/master/assets/images/MyMotoIcon.png))
 
 ## Overview
 
