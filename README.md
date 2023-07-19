@@ -19,16 +19,16 @@ MyMoto is a mobile application designed to help motorcycle owners keep track of 
   3. **Settings:** check with which account you are registered or change the theme to black
 
 ## Screenshots
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005822.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005833.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005906.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010031.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010034.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010042.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010046.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010050.jpg" alt="alt text" width="500">
+<img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010135.jpg" alt="alt text" width="500">
 
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005822.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005833.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_005906.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010031.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010034.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010042.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010046.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010050.jpg)
-![ScreenShoot](https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010135.jpg)
 
 ## How to Get Started
 
