@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:motoappv2/components/card.dart';
+import 'package:motoappv2/components/cards/main_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:collection/collection.dart';
 import 'dart:math';
-import 'package:motoappv2/db_utils/db_functions.dart';
+import 'package:motoappv2/db_functions/crud_functions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

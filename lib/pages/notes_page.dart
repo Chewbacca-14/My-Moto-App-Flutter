@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:motoappv2/components/card_notes.dart';
+import 'package:motoappv2/components/cards/card_notes.dart';
 import 'package:motoappv2/components/custom_dialog.dart';
-import 'package:motoappv2/db_utils/db_functions.dart';
+import 'package:motoappv2/db_functions/crud_functions.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});

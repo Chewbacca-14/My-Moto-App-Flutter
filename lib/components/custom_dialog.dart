@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:motoappv2/db_utils/db_functions.dart';
-import 'package:motoappv2/helpers/custom_button.dart';
-import 'package:motoappv2/helpers/text_field.dart';
-import 'package:motoappv2/utils/formatter.dart';
+import 'package:motoappv2/db_functions/crud_functions.dart';
+import 'package:motoappv2/components/custom_button.dart';
+import 'package:motoappv2/components/text_field.dart';
+import 'package:motoappv2/components/text_formatter/formatter.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 

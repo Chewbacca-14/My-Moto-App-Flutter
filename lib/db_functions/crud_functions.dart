@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:motoappv2/helpers/colors_palette.dart';
+import 'package:motoappv2/components/styles/colors_palette.dart';
 
 //update data if uid and name exist and write if not exist
 Future<void> updateOrCreate(String name, String uid, String mileage,

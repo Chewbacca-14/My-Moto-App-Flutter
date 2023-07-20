@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:motoappv2/db_utils/db_functions.dart';
-import 'package:motoappv2/helpers/fonts.dart';
+import 'package:motoappv2/db_functions/crud_functions.dart';
+import 'package:motoappv2/components/styles/fonts.dart';
 
-import 'box_decoration.dart';
+import '../styles/box_decoration_style.dart';
 
 class NotesCard extends StatelessWidget {
   final String? note;
@@ -54,7 +54,7 @@ class NotesCard extends StatelessWidget {
           height: 130,
           decoration: BoxDecoration(
             color: isLightTheme
-                ? Color.fromARGB(255, 249, 249, 249)
+                ? const Color.fromARGB(255, 249, 249, 249)
                 : Theme.of(context).colorScheme.primaryContainer,
             // image: isLightTheme
             //     ? const DecorationImage(

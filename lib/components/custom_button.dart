@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:motoappv2/helpers/fonts.dart';
-import 'colors_palette.dart';
+import 'package:motoappv2/components/styles/fonts.dart';
+import 'styles/colors_palette.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

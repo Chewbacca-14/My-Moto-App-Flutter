@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:motoappv2/components/box_decoration.dart';
+import 'package:motoappv2/components/styles/box_decoration_style.dart';
 import 'package:motoappv2/components/custom_dialog.dart';
-import 'package:motoappv2/helpers/fonts.dart';
+import 'package:motoappv2/components/styles/fonts.dart';
 
 
 class MainCard extends StatelessWidget {
