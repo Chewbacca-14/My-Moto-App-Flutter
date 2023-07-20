@@ -30,15 +30,6 @@ MyMoto is a mobile application designed to help motorcycle owners keep track of 
 <img src="https://github.com/Chewbacca-14/MyMotoV2/blob/master/assets/images/Screenshot_20230719_010135.jpg" alt="alt text" width="300">
 
 
-## How to Get Started
-
-Follow these simple steps to get started with MyMoto:
-
-1. Clone the repository to your local machine.
-2. Install the required dependencies by running `npm install` in the project root directory.
-3. Run the app on your emulator or physical device using `npm run start`.
-4. Start tracking your motorcycle's maintenance like a pro!
-
 ## Feedback and Support
 
 Me welcome your feedback! If you encounter any issues or have suggestions for improving MyMoto, please write me to discord chwbcc_max.
@@ -48,10 +39,6 @@ Me welcome your feedback! If you encounter any issues or have suggestions for im
 
 Me appreciate contributions from the community. If you're interested in contributing to MyMoto, please write me to discord chwbcc_max.
 
-## License
 
-MyMoto is released under the [MIT License](https://link-to-your-license-file).
-
----
 
 Thank you for your interest in MyMoto! We hope this app becomes your go-to companion for motorcycle maintenance tracking. Ride safe and enjoy the road! 🏍️
