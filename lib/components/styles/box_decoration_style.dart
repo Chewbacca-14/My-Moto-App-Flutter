@@ -8,14 +8,10 @@ BoxShadow standartShadow({required Color color}) {
   );
 }
 
-BoxShadow darkShadow() {
+BoxShadow cardShadow(BuildContext context) {
   return standartShadow(
-    color: const Color.fromARGB(255, 58, 58, 58).withOpacity(0.5),
+    color: Theme.of(context).colorScheme.shadow
   );
 }
 
-BoxShadow lightkShadow() {
-  return standartShadow(
-    color: const Color.fromARGB(255, 238, 238, 238).withOpacity(0.5),
-  );
-}
+

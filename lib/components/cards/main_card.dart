@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/styles/box_decoration_style.dart';
-import 'package:motoappv2/components/custom_dialog.dart';
+import 'package:motoappv2/components/custom_widgets/custom_dialog.dart';
 import 'package:motoappv2/components/styles/fonts.dart';
-
 
 class MainCard extends StatelessWidget {
   final String? mileage;
@@ -22,7 +21,6 @@ class MainCard extends StatelessWidget {
     //variables for theme
     ThemeData themeData = Theme.of(context);
     bool isLightTheme = themeData.brightness == Brightness.light;
-
     return GestureDetector(
       onTap: () async {
         await showDialog(
@@ -35,16 +33,16 @@ class MainCard extends StatelessWidget {
         child: Container(
           height: 120,
           decoration: BoxDecoration(
-            color: isLightTheme
-                ? null
-                : Theme.of(context).colorScheme.primaryContainer,
+            color: Theme.of(context).colorScheme.secondaryContainer,
             image: isLightTheme
                 ? const DecorationImage(
                     image: AssetImage('assets/images/bgcard.jpg'),
                     fit: BoxFit.fill)
                 : null,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [isLightTheme ? darkShadow() : lightkShadow()],
+            boxShadow: [
+              cardShadow(context),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 15),

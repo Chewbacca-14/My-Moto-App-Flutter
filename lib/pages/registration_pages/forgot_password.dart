@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/styles/colors_palette.dart';
-import 'package:motoappv2/components/custom_button.dart';
+import 'package:motoappv2/components/custom_widgets/custom_button.dart';
 import 'package:motoappv2/components/styles/fonts.dart';
 import 'package:motoappv2/components/text_field.dart';
 import 'package:motoappv2/db_functions/auth_functions.dart';
-import 'package:motoappv2/components/validation/validation.dart';
+import 'package:motoappv2/components/validation.dart';
 
 class ForgotPaswordPage extends StatefulWidget {
   const ForgotPaswordPage({super.key});

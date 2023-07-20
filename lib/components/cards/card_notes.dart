@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:motoappv2/components/styles/box_decoration_style.dart';
 import 'package:motoappv2/db_functions/crud_functions.dart';
 import 'package:motoappv2/components/styles/fonts.dart';
-
-import '../styles/box_decoration_style.dart';
 
 class NotesCard extends StatelessWidget {
   final String? note;
@@ -14,10 +12,6 @@ class NotesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //variables for theme
-    ThemeData themeData = Theme.of(context);
-    bool isLightTheme = themeData.brightness == Brightness.light;
-
     return Padding(
       padding: const EdgeInsets.all(15).copyWith(top: 7, bottom: 7),
       child: GestureDetector(
@@ -35,7 +29,7 @@ class NotesCard extends StatelessWidget {
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
                     onPressed: () async {
                       Navigator.pop(context);
-                     deleteNote(note);
+                      deleteNote(note);
                     },
                     child: Text(
                       'Delete',
@@ -53,16 +47,9 @@ class NotesCard extends StatelessWidget {
         child: Container(
           height: 130,
           decoration: BoxDecoration(
-            color: isLightTheme
-                ? const Color.fromARGB(255, 249, 249, 249)
-                : Theme.of(context).colorScheme.primaryContainer,
-            // image: isLightTheme
-            //     ? const DecorationImage(
-            //         image: AssetImage('assets/images/bgcard.jpg'),
-            //         fit: BoxFit.fill)
-            //     : null,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [isLightTheme ? darkShadow() : lightkShadow()],
+            boxShadow: [cardShadow(context)],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,12 +58,13 @@ class NotesCard extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 15),
-                 const Icon(Icons.date_range_outlined, color: Colors.blue),
-                 const SizedBox(width: 4),
-                  Text(
-                    '$date',
-                    style:  TextStyle(fontSize: 15, color: isLightTheme ? const Color.fromARGB(255, 48, 48, 48) : Colors.white, fontWeight: FontWeight.w500)
-                  ),
+                  const Icon(Icons.date_range_outlined, color: Colors.blue),
+                  const SizedBox(width: 4),
+                  Text('$date',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.w500)),
                 ],
               ),
               Padding(

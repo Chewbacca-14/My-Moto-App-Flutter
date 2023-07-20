@@ -33,10 +33,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //variables for theme
-    ThemeData themeData = Theme.of(context);
-    bool isLightTheme = themeData.brightness == Brightness.light;
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(

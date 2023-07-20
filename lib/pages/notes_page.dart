@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/cards/card_notes.dart';
-import 'package:motoappv2/components/custom_dialog.dart';
+import 'package:motoappv2/components/custom_widgets/custom_dialog.dart';
 import 'package:motoappv2/db_functions/crud_functions.dart';
 
 class NotesPage extends StatefulWidget {
@@ -49,13 +49,11 @@ class _NotesPageState extends State<NotesPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          {
-            await showDialog(
-              context: context,
-              builder: (context) => const CustomDialog(isNotes: true),
-            );
-          }
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => const CustomDialog(isNotes: true),
+          );
         },
         backgroundColor: Colors.lightBlueAccent,
         child: const Icon(Icons.add),

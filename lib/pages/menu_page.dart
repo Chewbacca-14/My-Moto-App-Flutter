@@ -19,7 +19,7 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   //current page index
-  int _currentIndex = 0;
+  int currentIndex = 0;
 
   //list of all pages
   List<Widget> pageList = [
@@ -32,8 +32,8 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: SalomonBottomBar(
-          currentIndex: _currentIndex,
-          onTap: (i) => setState(() => _currentIndex = i),
+          currentIndex: currentIndex,
+          onTap: (i) => setState(() => currentIndex = i),
           items: [
             SalomonBottomBarItem(
               icon: const Icon(Icons.home_outlined),
@@ -52,6 +52,6 @@ class _MenuPageState extends State<MenuPage> {
             ),
           ],
         ),
-        body: pageList[_currentIndex]);
+        body: pageList[currentIndex]);
   }
 }

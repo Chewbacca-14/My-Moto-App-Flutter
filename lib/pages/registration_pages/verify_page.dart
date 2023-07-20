@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/styles/colors_palette.dart';
-import 'package:motoappv2/components/custom_button.dart';
+import 'package:motoappv2/components/custom_widgets/custom_button.dart';
 import 'package:motoappv2/components/styles/fonts.dart';
 
 class VerifyPage extends StatefulWidget {

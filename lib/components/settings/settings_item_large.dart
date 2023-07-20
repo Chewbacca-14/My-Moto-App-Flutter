@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:motoappv2/components/styles/fonts.dart';
-import 'package:motoappv2/db_functions/auth_functions.dart';
 import 'package:motoappv2/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +17,7 @@ class SettingsItemCardLarge extends StatelessWidget {
           height: 105,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: isLightTheme ? Colors.grey[300] : Colors.grey[900],
+            color: Theme.of(context).colorScheme.tertiaryContainer,
           ),
           child: Column(
             children: [
@@ -45,7 +44,7 @@ class SettingsItemCardLarge extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Container(
-                color: Color.fromARGB(255, 137, 137, 137),
+                color: const Color.fromARGB(255, 137, 137, 137),
                 height: 0.25,
               ),
               const SizedBox(height: 2.3),

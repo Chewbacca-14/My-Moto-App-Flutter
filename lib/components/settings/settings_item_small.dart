@@ -9,9 +9,7 @@ class SettingsItemCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //variables for theme
-    ThemeData themeData = Theme.of(context);
-    bool isLightTheme = themeData.brightness == Brightness.light;
+   
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5),
       child: GestureDetector(
@@ -23,7 +21,7 @@ class SettingsItemCardSmall extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: isLightTheme ? Colors.grey[300] : Colors.grey[900],
+              color: Theme.of(context).colorScheme.tertiaryContainer,
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 18, right: 18),
@@ -40,7 +38,7 @@ class SettingsItemCardSmall extends StatelessWidget {
                   Icon(
                     Icons.arrow_forward_ios_rounded,
                     size: 13,
-                    color: isLightTheme ? Colors.grey[700] : Colors.white,
+                    color: Theme.of(context).colorScheme.onTertiary
                   ),
                 ],
               ),
